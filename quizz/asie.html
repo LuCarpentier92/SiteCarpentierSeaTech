@@ -1,20 +1,231 @@
-europe.html<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Asia</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 30px 20px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+        }
+
+        .question-container {
+            margin: 20px 0;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .question-container h2 {
+            font-size: 1.5rem;
+            color: #333;
+            padding: 0 10px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            max-width: 600px;
+        }
+
+        .next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ff7f50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-button:hover {
+            background-color: #e65e3f;
+        }
+    </style>
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+    <div class="quiz-container">
+        <header>
+            <h1>Quiz: Asia</h1>
+            <p>Test your knowledge about Asia's power dynamics and geopolitical influence!</p>
+        </header>
+        <div class="quiz-header">
+            <span id="question-counter">Question 1 / 3</span>
+        </div>
+        <div class="question-container">
+            <img id="question-image" src="https://via.placeholder.com/600x300" alt="Placeholder">
+            <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        </div>
+        <div class="options-container">
+            <button class="default" onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button class="default" onclick="checkAnswer(this, 1)">Japan</button>
+            <button class="default" onclick="checkAnswer(this, 2)">India</button>
+            <button class="default" onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+        <div class="explanation" id="explanation" style="display: none;">
+            India’s military strength and nuclear capability are key components of its strategy to project power both regionally and globally.
+        </div>
+        <button class="next-button" onclick="nextQuestion()">Next Question</button>
+    </div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+    <script>
+        let currentQuestion = 0;
+
+        const questions = [
+            {
+                question: "Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?",
+                options: ["Pakistan", "Japan", "India", "South Korea"],
+                correctOption: 2,
+                explanation: "India’s military strength and nuclear capability are key components of its strategy to project power both regionally and globally.",
+                image: "https://via.placeholder.com/600x300" // Replace with actual image URLs
+            },
+            {
+                question: "Which disputed region in Asia has been a source of tension between India and Pakistan since 1947?",
+                options: ["Tibet", "Kashmir", "Arunachal Pradesh", "Siachen Glacier"],
+                correctOption: 1,
+                explanation: "The Kashmir conflict highlights how territorial disputes are tied to projecting power.",
+                image: "https://via.placeholder.com/600x300" // Replace with actual image URLs
+            },
+            {
+                question: "Which Asian country is playing an increasingly influential role in international organizations such as the UN and the WTO?",
+                options: ["India", "South Korea", "Japan", "China"],
+                correctOption: 3,
+                explanation: "China's growing influence in organizations like the UN and WTO is a key way it projects power globally.",
+                image: "https://via.placeholder.com/600x300" // Replace with actual image URLs
+            }
+        ];
+
+        function checkAnswer(button, index) {
+            const questionData = questions[currentQuestion];
+            const explanation = document.getElementById("explanation");
+
+            if (index === questionData.correctOption) {
+                button.classList.add("correct");
+            } else {
+                button.classList.add("incorrect");
+            }
+
+            explanation.textContent = questionData.explanation;
+            explanation.style.display = "block";
+
+            // Disable all buttons after a selection
+            document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= questions.length) {
+                alert("Quiz completed!");
+                return;
+            }
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById("question-text").textContent = questionData.question;
+            document.getElementById("question-image").src = questionData.image;
+
+            const buttons = document.querySelectorAll('.options-container button');
+            buttons.forEach((btn, index) => {
+                btn.textContent = questionData.options[index];
+                btn.className = "default";
+                btn.disabled = false;
+            });
+
+            const explanation = document.getElementById("explanation");
+            explanation.style.display = "none";
+            explanation.textContent = questionData.explanation;
+        }
+
+        loadQuestion();
+    </script>
 </body>
 </html>

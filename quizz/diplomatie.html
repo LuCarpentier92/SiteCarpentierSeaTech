@@ -1,20 +1,358 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Diplomacy</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 30px 20px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+        }
+
+        .question-container {
+            margin: 20px 0;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .question-container h2 {
+            font-size: 1.5rem;
+            color: #333;
+            padding: 0 10px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            max-width: 600px;
+        }
+
+        .next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ff7f50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-button:hover {
+            background-color: #e65e3f;
+        }
+
+        .score-container {
+            font-size: 1.2rem;
+            margin: 20px;
+            color: #333;
+        }
+
+        .celebration {
+            display: none;
+            text-align: center;
+            color: #28a745;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        .celebration.animate {
+            display: block;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+    <div class="quiz-container">
+        <header>
+            <h1>Quiz: Diplomacy</h1>
+            <p>Test your knowledge about global diplomatic influence!</p>
+        </header>
+        <div class="quiz-header">
+            <span id="question-counter">Question 1 / 3</span>
+        </div>
+        <div class="score-container">
+            <span id="score-display">Score: 0</span>
+        </div>
+        <div class="question-container">
+            <img id="question-image" src="https://tse3.mm.bing.net/th?id=OIP.Q7_E15230qrX_UY__LKjVwHaJb&w=474&h=474&c=7" alt="Placeholder">
+            <h2 id="question-text">Which country is the main mediator in conflicts in Southeast Asia?</h2>
+        </div>
+        <div class="options-container">
+            <button class="default" onclick="checkAnswer(this, 0)">Vietnam</button>
+            <button class="default" onclick="checkAnswer(this, 1)">Malaysia</button>
+            <button class="default" onclick="checkAnswer(this, 2)">Indonesia</button>
+            <button class="default" onclick="checkAnswer(this, 3)">Thailand</button>
+        </div>
+        <div class="explanation" id="explanation" style="display: none;">
+            Indonesia plays a central role in mediating conflicts in Southeast Asia due to its size, strategic location, and status as a founding member of ASEAN.
+        </div>
+        <button class="next-button" onclick="nextQuestion()">Next Question</button>
+        <div class="celebration" id="celebration">
+            🎉 Amazing! You nailed it! 🎉
+        </div>
+    </div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questions = [
+            {
+		question: "Which country is the main mediator in conflicts in Southeast Asia?",
+    		options: ["Vietnam", "Malaysia", "Indonesia", "Thailand"],
+    		correctOption: 2,
+    		explanation: "Indonesia plays a central role in mediating conflicts in Southeast Asia due to its size, strategic location, and status as a founding member of ASEAN. With a population of over 270 million (World Bank), it is the largest nation in the region and has spearheaded peace efforts such as the 2005 Aceh peace agreement. Its active diplomacy in Myanmar and the South China Sea further cements its position as a regional leader in conflict resolution.",
+    		image: "https://tse3.mm.bing.net/th?id=OIP.Q7_E15230qrX_UY__LKjVwHaJb&w=474&h=474&c=7"
+            },
+            {
+   		question: "Which country is the diplomatic leader in the Gulf?",
+    		options: ["Iran", "Iraq", "Saudi Arabia", "Qatar"],
+    		correctOption: 2,
+    		explanation: "Saudi Arabia wields significant diplomatic influence in the Gulf, driven by its economic power and role as custodian of Islam's two holiest sites. It is the world’s largest oil exporter, accounting for over 10% of global production in 2023 (OPEC), which bolsters its geopolitical leverage. As a key member of the Gulf Cooperation Council, Saudi Arabia mediates conflicts, such as in Yemen, and hosts major summits on regional security and economic development.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country exerts the most influence in the Maghreb?",
+    		options: ["Tunisia", "Algeria", "Morocco", "Libya"],
+    		correctOption: 2,
+    		explanation: "Morocco leads in the Maghreb due to its stable political system, growing economy, and proactive foreign policy. The country attracted over 12 million tourists in 2023, making tourism a significant contributor to its GDP (World Tourism Organization). Morocco’s role in mediating African and Middle Eastern conflicts and its strong trade ties with Europe solidify its influence across the region.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country dominates politics in Central America?",
+    		options: ["Guatemala", "Costa Rica", "Panama", "Nicaragua"],
+    		correctOption: 2,
+    		explanation: "Panama’s control of the Panama Canal, through which 6% of global trade passes annually (Panama Canal Authority), gives it unparalleled influence in Central American politics. Its stable economy and role as a global trade hub position Panama as a diplomatic leader, mediating regional issues and fostering economic cooperation.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country holds the most diplomatic weight in Southern Africa?",
+    		options: ["Zimbabwe", "Zambia", "South Africa", "Botswana"],
+    		correctOption: 2,
+    		explanation: "South Africa is Southern Africa’s diplomatic heavyweight, contributing significantly to the African Union and SADC. With the continent’s second-largest economy, valued at over $400 billion in 2023 (World Bank), it frequently mediates regional conflicts, such as in Zimbabwe and Eswatini, and advocates for African interests on the global stage.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country is a permanent member of the UN Security Council and has veto power?",
+    		options: ["Germany", "Japan", "India", "Russia"],
+    		correctOption: 3,
+    		explanation: "Russia’s status as a permanent member of the UN Security Council grants it veto power over key global decisions. This position enables Russia to shape international policies on issues like sanctions, peacekeeping, and arms control. With a military budget exceeding $80 billion in 2023 (SIPRI), Russia underscores its global power in diplomacy and security.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country played a key role in the Camp David peace accords?",
+    		options: ["United States", "United Kingdom", "France", "Russia"],
+    		correctOption: 0,
+    		explanation: "The United States facilitated the 1978 Camp David peace accords between Egypt and Israel, marking a historic step toward peace in the Middle East. The agreement, which led to Egypt recognizing Israel, highlights the U.S.’s long-standing role as a mediator in the region. With over $3 billion in annual aid to Egypt and Israel (USAID), the U.S. continues to influence peace efforts.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country hosted crucial negotiations in 2022 to revive the Iranian nuclear deal?",
+    		options: ["Oman", "Kuwait", "Bahrain", "Qatar"],
+    		correctOption: 3,
+    		explanation: "Qatar hosted key negotiations in 2022 aimed at reviving the Iranian nuclear deal. As a neutral mediator with strong ties to both Western nations and Iran, Qatar has positioned itself as a critical player in Middle Eastern diplomacy. Its GDP per capita of $85,000 (IMF) and extensive energy resources further bolster its diplomatic standing.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country hosts the headquarters of the African Union?",
+    		options: ["Kenya", "South Africa", "Nigeria", "Ethiopia"],
+    		correctOption: 3,
+    		explanation: "Ethiopia, specifically its capital Addis Ababa, is home to the African Union headquarters. Hosting over 50 summits annually (African Union), Ethiopia serves as a hub for addressing continental issues such as economic development, peacekeeping, and regional integration.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country is the main mediator in Israeli-Palestinian negotiations?",
+    		options: ["United Kingdom", "United States", "France", "Russia"],
+    		correctOption: 1,
+    		explanation: "The United States has been the principal mediator in Israeli-Palestinian negotiations for decades, including the Oslo Accords in 1993. With annual aid exceeding $3.8 billion to Israel (USAID), the U.S. leverages its financial and diplomatic resources to influence peace talks, often proposing frameworks for conflict resolution.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which European country is famous for its policy of neutrality and hosts numerous international organizations?",
+    		options: ["Austria", "Belgium", "Switzerland", "Sweden"],
+    		correctOption: 2,
+    		explanation: "Switzerland’s neutrality and stability make it a global hub for diplomacy, hosting organizations like the United Nations in Geneva and the World Trade Organization. It also mediated over 100 international conflicts in the past decade (Swiss Federal Department of Foreign Affairs).",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country brokered a peace agreement between Ethiopia and Eritrea in 2018?",
+    		options: ["Saudi Arabia", "Qatar", "Kuwait", "United Arab Emirates"],
+    		correctOption: 3,
+    		explanation: "The UAE brokered the 2018 peace agreement between Ethiopia and Eritrea, ending a two-decade conflict. With over $23 billion invested in East Africa by 2023 (IMF), the UAE has established itself as a key player in regional diplomacy and development.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country mediated the Dayton Peace Accords?",
+    		options: ["United Kingdom", "United States", "Germany", "France"],
+    		correctOption: 1,
+    		explanation: "The United States mediated the Dayton Peace Accords in 1995, bringing an end to the Bosnian War. Held in Dayton, Ohio, the agreement marked a turning point in U.S. diplomacy, demonstrating its ability to resolve conflicts in Europe.",
+    		image: "https://via.placeholder.com/600x300"
+            },
+            {
+    		question: "Which country played a key role in negotiations leading to the Paris Climate Agreement in 2015?",
+    		options: ["Germany", "United Kingdom", "France", "United States"],
+    		correctOption: 2,
+    		explanation: "France hosted and led negotiations for the 2015 Paris Climate Agreement, securing commitments from nearly 200 nations to reduce greenhouse gas emissions. With over €3 billion pledged annually for climate financing (IEA), France solidified its leadership in global environmental diplomacy.",
+    		image: "https://via.placeholder.com/600x300"
+            }
+
+        ];
+
+        function checkAnswer(button, index) {
+            const questionData = questions[currentQuestion];
+            const explanation = document.getElementById("explanation");
+
+            if (index === questionData.correctOption) {
+                button.classList.add("correct");
+                score++;
+                document.getElementById("score-display").textContent = `Score: ${score}`;
+            } else {
+                button.classList.add("incorrect");
+            }
+
+            explanation.textContent = questionData.explanation;
+            explanation.style.display = "block";
+
+            // Disable all buttons after a selection
+            document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= questions.length) {
+                showFinalScore();
+                return;
+            }
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById("question-text").textContent = questionData.question;
+            document.getElementById("question-image").src = questionData.image;
+
+            const buttons = document.querySelectorAll('.options-container button');
+            buttons.forEach((btn, index) => {
+                btn.textContent = questionData.options[index];
+                btn.className = "default";
+                btn.disabled = false;
+            });
+
+            const explanation = document.getElementById("explanation");
+            explanation.style.display = "none";
+            explanation.textContent = questionData.explanation;
+        }
+
+        function showFinalScore() {
+            document.querySelector('.quiz-container').innerHTML = `
+                <header>
+                    <h1>Quiz Completed!</h1>
+                </header>
+                <p>Your final score is: ${score} / ${questions.length}</p>
+                <div class="celebration ${score === questions.length ? 'animate' : ''}" id="celebration">
+                    ${score === questions.length ? '🎉 Amazing! You nailed it! 🎉' : 'Great effort! Try again to improve!'}
+                </div>
+            `;
+        }
+
+        loadQuestion();
+    </script>
 </body>
 </html>
