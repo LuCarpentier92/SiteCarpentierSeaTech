@@ -1,0 +1,98 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(90deg, #0044cc, #002266);
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+}
+
+header h1 {
+    font-size: 3rem; /* Titre plus grand */
+    margin: 0;
+}
+
+header p {
+    margin-top: 10px;
+    font-size: 1.4rem; /* Sous-titre plus grand */
+}
+
+.description {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+    font-size: 1.4rem; /* Texte légèrement agrandi */
+    line-height: 1.8;
+    color: #555;
+    text-align: center;
+}
+
+.quiz-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cartes plus larges */
+    gap: 30px; /* Espacement augmenté */
+    margin: 40px auto;
+    max-width: 1400px; /* Conteneur plus large */
+    padding: 0 20px;
+}
+
+.quiz-card {
+    background: #fff;
+    border-radius: 15px; /* Coins plus arrondis */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Ombre plus visible */
+    padding: 25px; /* Plus de padding */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-card:hover {
+    transform: translateY(-10px); /* Augmentation de l'effet de survol */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-card h2 {
+    font-size: 2rem; /* Titre des cartes plus grand */
+    color: #0044cc;
+    margin: 15px 0;
+}
+
+.quiz-card p {
+    font-size: 1.2rem; /* Texte descriptif plus grand */
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.quiz-card a {
+    display: inline-block;
+    background: #0044cc;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px; /* Boutons arrondis */
+    text-decoration: none;
+    font-size: 1.2rem; /* Bouton plus grand */
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.quiz-card a:hover {
+    background: #002266;
+}
+
+footer {
+    background-color: #0044cc;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1rem;
+    position: fixed; /* Fixé en bas */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
