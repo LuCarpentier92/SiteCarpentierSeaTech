@@ -1,4 +1,5 @@
-/* Global Styles */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -7,11 +8,13 @@ body {
     color: #333;
 }
 
+
 header {
     background: linear-gradient(90deg, #0044cc, #002266);
     color: white;
-    text-align: center;
-    padding: 30px 0;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
 }
 
 header h1 {
@@ -24,66 +27,129 @@ header p {
     font-size: 1.4rem; /* Sous-titre plus grand */
 }
 
-.description {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 0 20px;
-    font-size: 1.4rem; /* Texte légèrement agrandi */
-    line-height: 1.8;
-    color: #555;
-    text-align: center;
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Ajuste la largeur maximale du contenu */
 }
+
+.header-logo {
+    width: 250px; /* Augmenté à 150px */
+    height: auto; /* Conserve les proportions */
+}
+
+.left-logo {
+    margin-right: 40px; /* Ajuste l'espacement à droite du logo gauche */
+}
+
+.right-logo {
+    margin-left: 40px; /* Ajuste l'espacement à gauche du logo droit */
+}
+
+
+.header-text {
+    text-align: center;
+    flex-grow: 1; /* Permet au texte de prendre tout l'espace restant */
+    margin: 0 20px;
+}
+
+.header-text h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.header-text p {
+    font-size: 1.5rem;
+    margin: 10px 0 0;
+}
+
+
+
+.description {
+    max-width: 800px; /* Limite la largeur pour une meilleure lisibilité */
+    margin: 30px auto; /* Centre horizontalement */
+    padding: 20px;
+    font-size: 1.4rem; /* Texte légèrement plus grand */
+    line-height: 1.8; /* Espacement entre les lignes */
+    color: #555;
+    text-align: center; /* Centre le texte */
+}
+
+.description p {
+    margin-bottom: 20px; /* Ajoute de l'espace entre les paragraphes */
+}
+
 
 .quiz-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cartes plus larges */
-    gap: 30px; /* Espacement augmenté */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
     margin: 40px auto;
-    max-width: 1400px; /* Conteneur plus large */
-    padding: 0 20px;
+    max-width: 1400px;
+    padding: 20px;
 }
 
 .quiz-card {
-    background: #fff;
-    border-radius: 15px; /* Coins plus arrondis */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Ombre plus visible */
-    padding: 25px; /* Plus de padding */
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff; /* Le texte devient blanc */
+    height: 300px; /* Hauteur fixe pour des cartes cohérentes */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent sombre pour contraster avec le texte */
 }
 
 .quiz-card:hover {
-    transform: translateY(-10px); /* Augmentation de l'effet de survol */
+    transform: translateY(-10px);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
 }
 
 .quiz-card h2 {
-    font-size: 2rem; /* Titre des cartes plus grand */
-    color: #0044cc;
-    margin: 15px 0;
+    font-size: 1.8rem;
+    margin: 15px 0 10px;
+    color: #ffcc00; /* Titre jaune vif pour contraste */
 }
 
 .quiz-card p {
-    font-size: 1.2rem; /* Texte descriptif plus grand */
-    color: #666;
-    margin-bottom: 25px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #dddddd; /* Texte descriptif gris clair */
 }
 
 .quiz-card a {
     display: inline-block;
-    background: #0044cc;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px; /* Boutons arrondis */
+    background: #0044cc; /* Bouton bleu vif */
+    color: white; /* Texte du bouton en blanc */
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
-    font-size: 1.2rem; /* Bouton plus grand */
     font-weight: bold;
     transition: background 0.3s ease;
 }
 
 .quiz-card a:hover {
-    background: #002266;
+    background: #002266; /* Couleur du bouton plus foncée au survol */
 }
+
+.icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #ffcc00; /* Icônes en jaune vif pour se démarquer */
+}
+
+
+
 
 footer {
     background-color: #0044cc;
@@ -91,8 +157,88 @@ footer {
     text-align: center;
     padding: 15px 0;
     font-size: 1rem;
-    position: fixed; /* Fixé en bas */
+    position: relative;
     bottom: 0;
     left: 0;
     width: 100%;
+    line-height: 1.6;
+}
+
+/* Navbar */
+
+.navbar {
+    color: white;
+    padding: 0; /* Supprime les marges internes inutiles */
+    display: flex;
+    justify-content: space-between; /* Espacement entre les éléments */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    max-width: 120px;
+    margin: 0 auto; /* Centre la barre de navigation */
+    border-radius: 10px; /* Coins arrondis (optionnel) */
+}
+
+
+
+/* Liste des liens */
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0; /* Supprime les marges et les padding inutiles */
+    align-items: center;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    padding: 15px 20px; /* Ajoute un espacement harmonieux */
+    display: block;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #002266;
+    color: #ffcc00;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background-color: #0044cc;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.dropdown-menu li {
+    width: 200px;
+}
+
+.dropdown-menu a {
+    padding: 10px 20px;
+    display: block;
+    color: white;
+}
+
+.dropdown-menu a:hover {
+    background-color: #002266;
+}
+
+/* Show dropdown menu on hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
 }

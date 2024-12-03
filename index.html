@@ -1,59 +1,113 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapports de Force Quiz</title>
+    <title>Power Dynamics Quiz</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+
 <header>
-    <h1>Rapports de Force Quiz</h1>
-    <p>Explorez les relations internationales à travers des thèmes captivants.</p>
+
+
+    <div class="header-content">
+        <img src="../images/seatech.png" alt="Seatech Logo" class="header-logo left-logo">
+        <div class="header-text">
+            <h1>Power Dynamics Quiz</h1>
+        </div>
+        <img src="../images/univ.png" alt="University Logo" class="header-logo right-logo">
+    </div>
 </header>
 
+
 <div class="description">
-    Bienvenue sur <strong>Rapports de Force Quiz</strong> ! Ce site interactif vous permet de tester vos connaissances sur les relations internationales à travers plusieurs thématiques : puissance militaire, domination économique, influence culturelle, et diplomatie mondiale.
-    Chaque quiz met en lumière les rapports de force entre les nations et leurs impacts sur le monde d'aujourd'hui. Prêt à relever le défi ? Choisissez un thème et commencez !
+    <p>
+        Welcome to <strong>Power Dynamics Quiz</strong>! Explore the fascinating world of international relations and test your knowledge across themes like military power, economic dominance, cultural influence, and global diplomacy.
+    </p>
+    <p>
+        Dive into the power dynamics shaping today's world. Are you ready to take on the challenge? Pick a theme and begin your journey!
+    </p>
 </div>
+
+
 
 <div class="quiz-container">
     <!-- Quiz 1 -->
-    <div class="quiz-card">
-        <h2>Puissance Militaire</h2>
-        <p>Testez vos connaissances sur les capacités militaires des grandes puissances.</p>
-        <a href="#military" onclick="startQuiz('military')">Commencer le Quiz</a>
+    <div class="quiz-card" style="background-image: url('../images/america-bg.jpg');">
+        <i class="icon fa fa-globe-americas"></i>
+        <h2>Spotlight on America</h2>
+        <p>Explore the history and influence of American nations.</p>
+        <a href="quizz/amerique.html">Explore</a>
     </div>
     <!-- Quiz 2 -->
-    <div class="quiz-card">
-        <h2>Puissance Économique</h2>
-        <p>Découvrez les pays qui dominent l'économie mondiale.</p>
-        <a href="#economic" onclick="startQuiz('economic')">Commencer le Quiz</a>
+    <div class="quiz-card" style="background-image: url('../images/africa-bg.jpg');">
+        <i class="icon fa fa-globe-africa"></i>
+        <h2>Spotlight on Africa</h2>
+        <p>Dive into the challenges and relationships within the African continent.</p>
+        <a href="quizz/afrique.html">Explore</a>
     </div>
     <!-- Quiz 3 -->
-    <div class="quiz-card">
-        <h2>Soft Power</h2>
-        <p>Analysez comment la culture et la diplomatie influencent le monde.</p>
-        <a href="#soft-power" onclick="startQuiz('soft-power')">Commencer le Quiz</a>
+    <div class="quiz-card" style="background-image: url('../images/asia-bg.jpg');">
+        <i class="icon fa fa-globe-asia"></i>
+        <h2>Spotlight on Asia</h2>
+        <p>Uncover the economic and cultural significance of Asia.</p>
+        <a href="quizz/asie.html">Explore</a>
     </div>
     <!-- Quiz 4 -->
-    <div class="quiz-card">
-        <h2>Puissance Diplomatique</h2>
-        <p>Mesurez l'influence des nations dans les relations internationales.</p>
-        <a href="#diplomatic" onclick="startQuiz('diplomatic')">Commencer le Quiz</a>
+    <div class="quiz-card" style="background-image: url('../images/europe-bg.jpg');">
+        <i class="icon fa fa-globe-europe"></i>
+        <h2>Spotlight on Europe</h2>
+        <p>Analyze Europe's historical and contemporary role in global affairs.</p>
+        <a href="quizz/europe.html">Explore</a>
     </div>
     <!-- Quiz 5 -->
-    <div class="quiz-card">
-        <h2>Focus sur l'Amérique</h2>
-        <p>Plongez dans l'histoire et l'influence des nations américaines.</p>
-        <a href="quizz/amerique.html">Explorer</a>
+    <div class="quiz-card" style="background-image: url('../images/economic-bg.jpg');">
+        <i class="icon fa fa-chart-line"></i>
+        <h2>Economic Power</h2>
+        <p>Discover the countries dominating the global economy.</p>
+        <a href="quizz/economie.html">Explore</a>
+    </div>
+    <!-- Quiz 6 -->
+    <div class="quiz-card" style="background-image: url('../images/military-bg.jpg');">
+        <i class="icon fa fa-fighter-jet"></i>
+        <h2>Military Power</h2>
+        <p>Test your knowledge of the military capabilities of major powers.</p>
+        <a href="quizz/militaire.html">Explore</a>
+    </div>
+    <!-- Quiz 7 -->
+    <div class="quiz-card" style="background-image: url('../images/soft-power-bg.jpg');">
+        <i class="icon fa fa-dove"></i>
+        <h2>Soft Power</h2>
+        <p>Understand how culture and diplomacy shape the world.</p>
+        <a href="quizz/soft-power.html">Explore</a>
+    </div>
+    <!-- Quiz 8 -->
+    <div class="quiz-card" style="background-image: url('../images/diplomatic-bg.jpg');">
+        <i class="icon fa fa-handshake"></i>
+        <h2>Diplomatic Power</h2>
+        <p>Measure the influence of nations in international relations.</p>
+        <a href="quizz/diplomatie.html">Explore</a>
     </div>
 </div>
 
+
 <footer>
-    © 2024 Rapports de Force Quiz - Tous droits réservés
+    <div>© 2024 Power Dynamics Quiz - All rights reserved</div>
+    <div style="margin-top: 10px;">
+        Created by: Lucas Carpentier, Enzo Cherif, Thibault Courtois, Ewen Guivarch, Zakaria El Bannoudi
+    </div>
 </footer>
 
+
 <script src="scripts.js"></script>
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById("nav-links");
+        navLinks.classList.toggle("active");
+    }
+</script>
+
 </body>
 </html>

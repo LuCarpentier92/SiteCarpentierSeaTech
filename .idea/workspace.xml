@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="950ce1ce-a722-47a7-97df-736696055139" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/quizz/afrique.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quizz/asie.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quizz/diplomatie.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quizz/economie.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quizz/europe.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quizz/militaire.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quizz/soft-power.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amerique.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz/amerique.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1733230347422</updated>
       <workItem from="1733230348452" duration="438000" />
-      <workItem from="1733231107688" duration="813000" />
+      <workItem from="1733231107688" duration="4872000" />
     </task>
     <servers />
   </component>
