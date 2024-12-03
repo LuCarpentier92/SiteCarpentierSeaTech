@@ -1,20 +1,232 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Africa</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 30px 20px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+        }
+
+        .question-container {
+            margin: 20px 0;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .question-container h2 {
+            font-size: 1.5rem;
+            color: #333;
+            padding: 0 10px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            max-width: 600px;
+        }
+
+        .next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ff7f50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-button:hover {
+            background-color: #e65e3f;
+        }
+    </style>
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+    <div class="quiz-container">
+        <header>
+            <h1>Quiz: Africa</h1>
+            <p>Test your knowledge about Africa's geography, economy, and culture!</p>
+        </header>
+        <div class="quiz-header">
+            <span id="question-counter">Question 1 / 13</span>
+        </div>
+        <div class="question-container">
+            <img id="question-image" src="https://via.placeholder.com/600x300" alt="Placeholder">
+            <h2 id="question-text">Which African country is the most populous and has the largest economy on the continent in 2023?</h2>
+        </div>
+        <div class="options-container">
+            <button class="default" onclick="checkAnswer(this, 0)">Egypt</button>
+            <button class="default" onclick="checkAnswer(this, 1)">South Africa</button>
+            <button class="default" onclick="checkAnswer(this, 2)">Nigeria</button>
+            <button class="default" onclick="checkAnswer(this, 3)">Ethiopia</button>
+        </div>
+        <div class="explanation" id="explanation" style="display: none;">
+            Nigeria is the most populous country in Africa, with a population exceeding 220 million in 2023. It also boasts the largest economy on the continent.
+        </div>
+        <button class="next-button" onclick="nextQuestion()">Next Question</button>
+    </div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+    <script>
+        let currentQuestion = 0;
+
+        const questions = [
+            {
+                question: "Which African country is the most populous and has the largest economy on the continent in 2023?",
+                options: ["Egypt", "South Africa", "Nigeria", "Ethiopia"],
+                correctOption: 2,
+                explanation: "Nigeria is the most populous country in Africa, with a population exceeding 220 million in 2023. It also boasts the largest economy on the continent.",
+                image: "https://via.placeholder.com/600x300" // Replace with actual image URLs
+            },
+            {
+                question: "Which North African country is recognized for its key role in the Maghreb region?",
+                options: ["Algeria", "Morocco", "Tunisia", "Libya"],
+                correctOption: 0,
+                explanation: "Algeria plays a pivotal role in the Maghreb region due to its vast natural resources, particularly as one of the largest exporters of natural gas in the world.",
+                image: "https://via.placeholder.com/600x300" // Replace with actual image URLs
+            },
+            {
+                question: "Which foreign power is heavily invested in infrastructure projects in Africa?",
+                options: ["France", "United States", "Russia", "China"],
+                correctOption: 3,
+                explanation: "China is the largest investor in African infrastructure, funding major projects such as roads, railways, ports, and energy facilities through its Belt and Road Initiative.",
+                image: "https://via.placeholder.com/600x300" // Replace with actual image URLs
+            },
+            // Add remaining questions here...
+        ];
+
+        function checkAnswer(button, index) {
+            const questionData = questions[currentQuestion];
+            const explanation = document.getElementById("explanation");
+
+            if (index === questionData.correctOption) {
+                button.classList.add("correct");
+            } else {
+                button.classList.add("incorrect");
+            }
+
+            explanation.textContent = questionData.explanation;
+            explanation.style.display = "block";
+
+            // Disable all buttons after a selection
+            document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= questions.length) {
+                alert("Quiz completed!");
+                return;
+            }
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById("question-text").textContent = questionData.question;
+            document.getElementById("question-image").src = questionData.image;
+
+            const buttons = document.querySelectorAll('.options-container button');
+            buttons.forEach((btn, index) => {
+                btn.textContent = questionData.options[index];
+                btn.className = "default";
+                btn.disabled = false;
+            });
+
+            const explanation = document.getElementById("explanation");
+            explanation.style.display = "none";
+            explanation.textContent = questionData.explanation;
+        }
+
+        loadQuestion();
+    </script>
 </body>
 </html>
