@@ -1,20 +1,488 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Economy</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+            font-weight: bold;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            padding: 0 15px;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        @keyframes correct-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .correct.animate {
+            animation: correct-animation 0.5s ease forwards;
+        }
+
+        .incorrect.animate {
+            animation: incorrect-animation 0.5s ease forwards;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #ddd;
+        }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
+
+		#explanation a:hover {
+			text-decoration: underline;
+		}
+
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+
+		@keyframes shake {
+			0%, 100% {
+				transform: translateX(0);
+			}
+			25% {
+				transform: translateX(-10px);
+			}
+			50% {
+				transform: translateX(10px);
+			}
+			75% {
+				transform: translateX(-5px);
+			}
+		}
+
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% {
+				transform: translateY(0);
+			}
+			40% {
+				transform: translateY(-20px);
+			}
+			60% {
+				transform: translateY(-10px);
+			}
+		}
+
+		@keyframes zoom {
+			0% {
+				transform: scale(0.8);
+				opacity: 0;
+			}
+			50% {
+				transform: scale(1.2);
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.result-message.shake {
+			animation: shake 1s ease-in-out;
+		}
+
+		.result-message.bounce {
+			animation: bounce 1.5s ease-in-out;
+		}
+
+		.result-message.zoom {
+			animation: zoom 1.5s ease-out;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+<div class="quiz-container" id="quiz-container">
+    <header>
+        <h1>Quiz: Economy</h1>
+        <p>Test your knowledge about Economy and its geopolitical powers!</p>
+    </header>
+    <div class="quiz-header">
+        <span id="question-counter">Question 1 / 12</span>
+    </div>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://via.placeholder.com/600x300" alt="Question Image">
+        <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button onclick="checkAnswer(this, 1)">Japan</button>
+            <button onclick="checkAnswer(this, 2)">India</button>
+            <button onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+    </div>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+</div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+
+
+<script>
+    let currentQuestion = 0;
+	let score = 0;
+
+	const questions = [
+		{
+			question: "Which country is the largest exporter of oil in the world?",
+			options: ["United States", "Russia", "Saudi Arabia", "United Arab Emirates"],
+			correctOption: 2,
+			explanation: "Saudi Arabia remains the largest oil exporter globally, shipping over 7 million barrels daily in 2023 (OPEC). This dominance is supported by its vast reserves, estimated at 267 billion barrels, which represent about 16% of the world's proven oil reserves. As a leading member of OPEC, Saudi Arabia plays a pivotal role in setting global oil prices and balancing supply and demand. The revenues from oil exports, accounting for roughly 80% of its GDP, enable the Kingdom to fund ambitious projects like Vision 2030, aimed at diversifying its economy. This economic leverage allows Saudi Arabia to project power both regionally and globally.",
+			image: "https://madeinfoot.ouest-france.fr/photos/ligue-1/2023/zoom/l1-20230706083338-7925.jpg",
+			source: "https://www.opec.org/opec_web/en/about_us/169.htm"
+		},
+		{
+			question: "Which country surpassed the United States to become the largest economy in terms of GDP based on purchasing power parity (PPP)?",
+			options: ["China", "Japan", "Germany", "India"],
+			correctOption: 0,
+			explanation: "China became the largest economy by PPP in 2014 and has since expanded its GDP to over $30 trillion PPP-adjusted in 2023 (IMF). This economic might is driven by its manufacturing sector, which accounts for nearly 30% of global industrial output, and its massive domestic market of 1.4 billion people. China’s investments in infrastructure, both domestically and internationally through initiatives like the Belt and Road, reinforce its influence. Its ability to leverage economic power has reshaped global trade patterns, with China serving as the largest trading partner for over 120 countries.",
+			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQFrRrd7rCg-HtIc_hjIGOU6ZnHO-HBUqCbA&s",
+			source: "https://www.imf.org/en/Countries/CHN"
+		},
+		{
+			question: "Which country is the largest cocoa producer in the world?",
+			options: ["Nigeria", "Ghana", "Ivory Coast", "Cameroon"],
+			correctOption: 2,
+			explanation: "Ivory Coast dominates the cocoa industry, producing over 2 million tons annually, which accounts for 40% of global cocoa supply (FAO). This critical role in the chocolate supply chain gives the country significant bargaining power in international commodity markets. Cocoa supports the livelihoods of 5 million Ivorians, making it central to the nation’s economy. However, the country faces challenges such as deforestation and price volatility, prompting efforts to promote sustainable cocoa farming practices to maintain its global leadership.",
+			image: "https://image-blog.comptoir.fr/bresil/2017/11/dghchocolatier.jpg",
+			source: "https://www.fao.org/cocoa"
+		},
+		{
+			question: "Which country recorded the highest GDP growth over the past ten years among African countries?",
+			options: ["Kenya", "Ethiopia", "Rwanda", "Ghana"],
+			correctOption: 1,
+			explanation: "Ethiopia’s economy grew at an impressive average rate of 9% annually from 2013 to 2023 (World Bank), driven by government-led investments in infrastructure and industrialization. Projects like the Grand Ethiopian Renaissance Dam and extensive road and rail networks have transformed the country into a regional economic hub. Despite its growth, Ethiopia faces challenges such as political instability and external debt, yet it continues to attract foreign investment, positioning itself as a rising African powerhouse.",
+			image: "https://upload.wikimedia.org/wikipedia/commons/2/21/Africa_satellite_orthographic.jpg",
+			source: "https://www.worldbank.org/en/country/ethiopia"
+		},
+		{
+			question: "Which country is the largest exporter of digital services in the world?",
+			options: ["United Kingdom", "United States", "China", "India"],
+			correctOption: 3,
+			explanation: "India exported over $190 billion in IT and digital services in 2023 (NASSCOM), making it the global leader. The IT hubs in Bangalore, Hyderabad, and Pune house tech giants like Infosys, TCS, and Wipro. India’s skilled workforce, offering competitive costs, has made it indispensable for global businesses seeking outsourcing solutions. Beyond cost advantages, India is advancing in AI, blockchain, and cybersecurity, positioning itself as a leader in the digital transformation of industries worldwide.",
+			image: "https://www.ecommerce-nation.fr/wp-content/uploads/2023/02/header-fiche-presta-fiverr.png",
+			source: "https://nasscom.in/knowledge-center/publications"
+		},
+		{
+			question: "Which country is the largest exporter of green technologies?",
+			options: ["United States", "China", "Germany", "Japan"],
+			correctOption: 2,
+			explanation: "Germany leads the world in exporting green technologies, with over €100 billion in exports in 2023 (IEA). Its expertise in wind turbines, solar panels, and energy-efficient machinery underpins its success. As the birthplace of the Energiewende (energy transition), Germany has pioneered sustainable solutions that address climate challenges. Its innovations not only bolster its economy but also enhance its soft power by positioning it as a global leader in the fight against climate change.",
+			image: "https://images.rtl.fr/~c/2000v2000/rtl/www/1545461-stand-du-constructeur-automobile-chinois-byd-au-mondial-de-l-auto-de-paris.jpg",
+			source: "https://www.iea.org/reports/renewables-2023"
+		},
+		{
+			question: "Which country experienced the highest currency devaluation in 2023 due to hyperinflation?",
+			options: ["Argentina", "Turkey", "Venezuela", "Zimbabwe"],
+			correctOption: 0,
+			explanation: "Argentina saw its currency lose over 80% of its value in 2023, with inflation exceeding 110% (IMF). The devaluation stemmed from chronic fiscal deficits, high external debt, and limited foreign reserves. Despite these challenges, Argentina remains a key player in global agriculture, exporting soybeans and beef. The government is pursuing economic reforms and negotiating with international creditors to stabilize its economy and regain investor confidence.",
+			image: "https://i.topito.com/IDFLfyb9iQ-4dsqEhyh3Z5T1bw6Kry6Qm7pNAN4YYPk=/1340x704/smart/filters:fill(white):format(webp):quality(70)/https%3A%2F%2Fmedia.topito.com%2Fwp-content%2Fuploads%2F2018%2F06%2Fune_messi.jpg",
+			source: "https://www.imf.org/en/Countries/ARG"
+		},
+		{
+			question: "Which country has become the largest solar energy producer in the world?",
+			options: ["United States", "China", "Japan", "Germany"],
+			correctOption: 1,
+			explanation: "China produces over 300 GW of solar energy annually, representing more than one-third of global capacity (IRENA). It leads in both solar panel manufacturing and installation, driving down global costs. China’s solar energy leadership is a cornerstone of its renewable energy strategy, helping it transition toward carbon neutrality by 2060. This dominance also strengthens China’s influence in shaping global energy markets and sustainability policies.",
+			image: "https://cdn-s-www.ledauphine.com/images/C7638504-54E7-42A7-8483-4D70E4D43B16/NW_detail/capture-d-ecran-twitter-1499630317.jpg",
+			source: "https://www.irena.org/Statistics"
+		},
+		{
+			question: "Which country is a major exporter of dairy and meat products in the Pacific region?",
+			options: ["Japan", "Indonesia", "New Zealand", "Philippines"],
+			correctOption: 2,
+			explanation: "New Zealand exported over $20 billion in dairy and meat products in 2023 (FAO). Its efficient agricultural practices and adherence to high food safety standards have made its products sought after worldwide. With its geographic isolation, New Zealand leverages these exports to assert economic influence, particularly in the Asia-Pacific region, where demand for high-quality food is rising.",
+			image: "https://www.voyagethailande.fr/cdn/th-public/baan_pa_bong_piang_2.jpg",
+			source: "https://www.fao.org"
+		},
+		{
+			question: "Which country uses its economic weight to offer investments and conditional loans to gain influence in the Asian region?",
+			options: ["Japan", "South Korea", "India", "China"],
+			correctOption: 3,
+			explanation: "Through initiatives like the Belt and Road, China has invested over $1 trillion in infrastructure across Asia (World Bank). These projects include ports, railways, and energy facilities, fostering economic dependencies. By tying loans to strategic agreements, China secures trade routes and access to critical resources, cementing its geopolitical influence in the region.",
+			image: "https://i.ytimg.com/vi/QOrU5J8fDBk/maxresdefault.jpg",
+			source: "https://www.worldbank.org/en/topic/poverty"
+		}
+	];
+
+
+
+
+
+
+
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
+
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
+
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
+
+
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
+
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+	}
+
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
+
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
+
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: `Honestly, your English is so bad I’m starting to think you paid for your TOEIC on Snapchat. 💸 Let me guess, you got "guaranteed results" for 20 euros? 🤡`,
+				animation: "shake",
+				emoji: "📉"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: `Not the worst, but your English still screams "Google Translate enthusiast." 🖥️ Maybe try reading subtitles instead of skipping to dubbed versions. 😏`,
+				animation: "bounce",
+				emoji: "📚"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: `Wow, nice score! But let’s not kid ourselves—you either cheated or you’re hiding an Oxford professor in your pocket. 🕵️‍♂️ Admit it, your TOEIC is probably framed right next to your Snap streaks. 🎯`,
+				animation: "zoom",
+				emoji: "🏆"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
+	loadQuestion();
+
+</script>
 </body>
 </html>

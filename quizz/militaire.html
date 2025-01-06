@@ -1,20 +1,486 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Military Power</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+            font-weight: bold;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            padding: 0 15px;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        @keyframes correct-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .correct.animate {
+            animation: correct-animation 0.5s ease forwards;
+        }
+
+        .incorrect.animate {
+            animation: incorrect-animation 0.5s ease forwards;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #ddd;
+        }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
+
+		#explanation a:hover {
+			text-decoration: underline;
+		}
+
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+		
+		@keyframes shake {
+			0%, 100% {
+				transform: translateX(0);
+			}
+			25% {
+				transform: translateX(-10px);
+			}
+			50% {
+				transform: translateX(10px);
+			}
+			75% {
+				transform: translateX(-5px);
+			}
+		}
+
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% {
+				transform: translateY(0);
+			}
+			40% {
+				transform: translateY(-20px);
+			}
+			60% {
+				transform: translateY(-10px);
+			}
+		}
+
+		@keyframes zoom {
+			0% {
+				transform: scale(0.8);
+				opacity: 0;
+			}
+			50% {
+				transform: scale(1.2);
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.result-message.shake {
+			animation: shake 1s ease-in-out;
+		}
+
+		.result-message.bounce {
+			animation: bounce 1.5s ease-in-out;
+		}
+
+		.result-message.zoom {
+			animation: zoom 1.5s ease-out;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+<div class="quiz-container" id="quiz-container">
+    <header>
+        <h1>Quiz: Military Power</h1>
+        <p>Test your knowledge about Military Power!</p>
+    </header>
+    <div class="quiz-header">
+        <span id="question-counter">Question 1 / 12</span>
+    </div>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://i0.wp.com/mindthemap.fr/wp-content/uploads/2017/06/Depenses-militaires-dans-le-monde_1000.jpg?ssl=1&w=1000" alt="Question Image">
+        <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button onclick="checkAnswer(this, 1)">Japan</button>
+            <button onclick="checkAnswer(this, 2)">India</button>
+            <button onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+    </div>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+</div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+
+
+<script>
+    let currentQuestion = 0;
+	let score = 0;
+
+	const questions = [
+		{
+			question: "Which country had the largest military budget in the world in 2023?",
+			options: ["China", "United States", "Russia", "United Kingdom"],
+			correctOption: 1,
+			explanation: "The United States allocated over $842 billion to its defense budget in 2023 (SIPRI), which represents nearly 40% of global military spending. This immense budget supports a vast network of over 750 military bases in more than 80 countries, enabling the U.S. to project power globally.",
+			image: "https://i0.wp.com/mindthemap.fr/wp-content/uploads/2017/06/Depenses-militaires-dans-le-monde_1000.jpg?ssl=1&w=1000",
+			source: "https://www.sipri.org/research/armaments-and-disarmament/armaments-and-military-expenditure"
+		},
+		{
+			question: "Which country has the largest active military personnel?",
+			options: ["China", "India", "United States", "Russia"],
+			correctOption: 0,
+			explanation: "China’s People’s Liberation Army (PLA) comprises over 2 million active personnel (IISS), supported by a growing defense budget of $293 billion in 2023. This manpower enables China to assert its dominance in the Asia-Pacific region.",
+			image: "https://i.redd.it/y9xx3ilrf2g11.jpg",
+			source: "https://www.iiss.org/publications"
+		},
+		{
+			question: "Which country is the only one with an official 'no-first-use' nuclear weapons policy?",
+			options: ["Russia", "India", "Pakistan", "China"],
+			correctOption: 1,
+			explanation: "India’s 'no-first-use' nuclear doctrine, adopted in 1998, emphasizes deterrence and restraint, contrasting with more aggressive postures by other nuclear powers.",
+			image: "https://atlasocio.com/cartes/defense/nucleaire/carte-monde-etats-par-arsenal-nucleaire_atlasocio.png",
+			source: "https://www.cnbc.com/2023/01/01/india-nuclear-doctrine.html"
+		},
+		{
+			question: "Which country had the largest military budget in Europe in 2023?",
+			options: ["France", "Germany", "United Kingdom", "Italy"],
+			correctOption: 2,
+			explanation: "The UK’s defense budget of $68 billion in 2023 (SIPRI) underscores its commitment to projecting power as a leading NATO member.",
+			image: "https://c8.alamy.com/compfr/j16yr4/illustration-de-tous-les-drapeaux-des-pays-europeens-j16yr4.jpg",
+			source: "https://www.sipri.org/research/armaments-and-disarmament/armaments-and-military-expenditure"
+		},
+		{
+			question: "Which country has significantly increased its military budget due to its involvement in regional conflicts in West Asia?",
+			options: ["Saudi Arabia", "Iran", "United Arab Emirates", "Qatar"],
+			correctOption: 0,
+			explanation: "Saudi Arabia spent $75 billion on defense in 2023 (SIPRI), focusing on advanced air defense systems and modernizing its armed forces.",
+			image: "https://img.freepik.com/photos-premium/soldats-forces-speciales-guerres-dans-desert-peuple-thailandais-soldat-armee-patrouille-pied_44277-26372.jpg?w=2000",
+			source: "https://www.sipri.org/research/armaments-and-disarmament/armaments-and-military-expenditure"
+		},
+		{
+			question: "Which country has heavily invested in its military, increasing its defense budget by more than 100% between 2012 and 2023, to counter China's military influence in the Asia-Pacific region?",
+			options: ["South Korea", "Taiwan", "Japan", "Philippines"],
+			correctOption: 2,
+			explanation: "Japan’s defense spending reached $52 billion in 2023 (Japan MOD), a reflection of its efforts to counter growing Chinese assertiveness in the East China Sea.",
+			image: "https://thumbs.dreamstime.com/z/drapeaux-de-l-asie-pays-le-drapeau-arrondi-vecteur-carr%C3%A9-d-ic%C3%B4nes-que-les-carr%C3%A9es-dirigent-sur-fond-blanc-141524886.jpg",
+			source: "https://www.mod.go.jp/en"
+		},
+		{
+			question: "Which Latin American country is currently the largest arms importer and has significantly increased its military spending to combat gangs and drug cartels?",
+			options: ["Mexico", "Colombia", "Brazil", "Argentina"],
+			correctOption: 2,
+			explanation: "Brazil invested $22 billion in its military in 2023 (SIPRI), focusing on modernizing its armed forces to address organized crime and secure its borders.",
+			image: "https://static.euronews.com/articles/stories/08/44/16/86/1200x675_cmsv2_4d9a429c-c447-55af-ac71-f392785012b8-8441686.jpg",
+			source: "https://www.sipri.org/research/armaments-and-disarmament/armaments-and-military-expenditure"
+		},
+		{
+			question: "Which NATO member has the second-largest number of troops after the United States within the alliance?",
+			options: ["France", "Turkey", "United Kingdom", "Germany"],
+			correctOption: 1,
+			explanation: "Turkey maintains 440,000 active military personnel (NATO), giving it substantial influence within NATO. Its strategic location enhances its role in regional conflicts.",
+			image: "https://www.researchgate.net/publication/370229590/figure/fig3/AS%3A11431281153304812%401682399982388/NATO-Members-and-Candidates-52.png",
+			source: "https://www.nato.int/cps/en/natolive/topics_82777.htm"
+		},
+		{
+			question: "Which Middle Eastern country has the largest military and air capabilities?",
+			options: ["Saudi Arabia", "Iran", "Israel", "United Arab Emirates"],
+			correctOption: 0,
+			explanation: "Saudi Arabia possesses one of the most advanced air forces in the Middle East, with over 200 modern fighter jets like the F-15 and Eurofighter Typhoon.",
+			image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Middle_East_%28orthographic_projection%29.svg/langfr-280px-Middle_East_%28orthographic_projection%29.svg.png",
+			source: "https://www.globalfirepower.com"
+		},
+		{
+			question: "Which African country has the largest military force and plays a key role in combating terrorism in the Sahel?",
+			options: ["Algeria", "Morocco", "Egypt", "Nigeria"],
+			correctOption: 0,
+			explanation: "Algeria’s military, with over 130,000 active personnel and a $10 billion defense budget (SIPRI), is the largest in Africa and plays a leading role in Sahel counter-terrorism operations.",
+			image: "https://cloudfront-eu-central-1.images.arcpublishing.com/lexpress/WJJVEMZV2FAJPM4BCONLV6AS3Y.jpg",
+			source: "https://www.sipri.org/research/armaments-and-disarmament/armaments-and-military-expenditure"
+		}
+	];
+
+
+
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
+
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
+
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
+
+
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
+
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+
+	}
+
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
+
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
+
+
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: "That doesn't surprise me; you're not very good at this. 🙄 Maybe next time, genius!",
+				animation: "shake",
+				emoji: "😢"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: "Not bad, but you're not as good as Enzo, Lucas, Thibault, or Ewen, who all got perfect scores. Keep practicing! ✌️",
+				animation: "bounce",
+				emoji: "😎"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: "Hmm.. Bravo, but I think you cheated! 🕵️‍♂️ I'll keep an eye on you. 👀",
+				animation: "zoom",
+				emoji: "🎉"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
+	loadQuestion();
+
+</script>
 </body>
 </html>

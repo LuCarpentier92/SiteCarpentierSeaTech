@@ -1,20 +1,464 @@
-europe.html<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Asia</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+            font-weight: bold;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            padding: 0 15px;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        @keyframes correct-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .correct.animate {
+            animation: correct-animation 0.5s ease forwards;
+        }
+
+        .incorrect.animate {
+            animation: incorrect-animation 0.5s ease forwards;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #ddd;
+        }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
+
+		#explanation a:hover {
+			text-decoration: underline;
+		}
+
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+		
+		@keyframes flash {
+			0%, 50%, 100% {
+				background-color: red;
+			}
+			25%, 75% {
+				background-color: white;
+			}
+		}
+
+		.result-container.low-score {
+			animation: flash 1s infinite;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+<div class="quiz-container" id="quiz-container">
+    <header>
+        <h1>Quiz: Asia</h1>
+        <p>Test your knowledge about Asia and its geopolitical powers!</p>
+    </header>
+    <div class="quiz-header">
+        <span id="question-counter">Question 1 / 12</span>
+    </div>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://via.placeholder.com/600x300" alt="Question Image">
+        <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button onclick="checkAnswer(this, 1)">Japan</button>
+            <button onclick="checkAnswer(this, 2)">India</button>
+            <button onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+    </div>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+</div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+
+
+<script>
+    let currentQuestion = 0;
+	let score = 0;
+
+	const questions = [
+		{
+			question: "Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?",
+			options: ["Pakistan", "Japan", "India", "South Korea"],
+			correctOption: 2,
+			explanation: "India’s military strength and nuclear capability are key components of its strategy to project power both regionally and globally. With one of the largest armies in the world and a robust defense industry, India asserts its dominance in South Asia and counters regional rivals like China and Pakistan. Its nuclear arsenal, developed in 1998, further reinforces its position as a major global power, ensuring both deterrence and influence on the international stage.",
+			image: "https://www.hrw.org/sites/default/files/styles/embed_xxl/public/media_2021/06/202105northkorea_food_shortage_kim_jong_un.jpg?itok=IjEPNThC",
+			source: "https://www.nti.org/analysis/articles/india-nuclear-weapons/"
+		},
+		{
+			question: "Which disputed region in Asia has been a source of tension between India and Pakistan since 1947?",
+			options: ["Tibet", "Kashmir", "Arunachal Pradesh", "Siachen Glacier"],
+			correctOption: 1,
+			explanation: "The Kashmir conflict highlights how territorial disputes are tied to projecting power. Both India and Pakistan use their claims to assert dominance in South Asia, with Kashmir's strategic location and resources symbolizing geopolitical strength. The conflict’s international dimension, involving China and global powers, underscores how contested regions become arenas for broader power struggles.",
+			image: "https://i.ytimg.com/vi/5L7M55xOLp8/maxresdefault.jpg",
+			source: "https://www.bbc.com/news/world-asia-22174078"
+		},
+		{
+			question: "Which Asian country is playing an increasingly influential role in international organizations such as the UN and the WTO?",
+			options: ["India", "South Korea", "Japan", "China"],
+			correctOption: 3,
+			explanation: "China's growing influence in organizations like the UN and WTO is a key way it projects power globally. By actively shaping policies and asserting leadership in these institutions, China advances its strategic interests and strengthens its position in international diplomacy. This involvement underscores its ambition to redefine global governance and challenge traditional power dynamics.",
+			image: "https://via.placeholder.com/600x300",
+			source: "https://www.china-briefing.com/news/china-wto-challenges-2020/"
+		},
+		{
+			question: "Which Southeast Asian country has the most modern military force?",
+			options: ["Malaysia", "Thailand", "Singapore", "Philippines"],
+			correctOption: 2,
+			explanation: "Singapore projects its regional power through a modern and well-equipped military force. With approximately 51,000 active personnel and the ability to mobilize over 252,500 reservists when needed, the country maintains a robust defensive posture. In 2022, Singapore's military expenditure amounted to approximately USD 11.7 billion, highlighting its commitment to modernizing its defense capabilities.",
+			image: "https://images3.memedroid.com/images/UPLOADED400/5ac871f40be68.jpeg",
+			source: "https://www.statista.com/statistics/264808/singapore-defense-budget/"
+		},
+		{
+			question: "Which country strategically controls the Strait of Malacca?",
+			options: ["Singapore", "Malaysia", "Indonesia", "Thailand"],
+			correctOption: 0,
+			explanation: "Singapore plays a crucial role in controlling the Strait of Malacca, one of the world’s most important maritime chokepoints. Approximately 40% of global trade and around 16 million barrels of oil per day pass through this narrow waterway. Singapore’s advanced port infrastructure, which ranks among the busiest globally, and its naval capabilities enable it to oversee and secure this critical route.",
+			image: "https://s2.dmcdn.net/v/Un5op1a6Weh5prx1m/x480",
+			source: "https://www.eia.gov/beta/international/"
+		},
+		{
+			question: "Which country is the most diplomatically influential in Central Asia?",
+			options: ["Uzbekistan", "Tajikistan", "Kyrgyzstan", "Kazakhstan"],
+			correctOption: 3,
+			explanation: "Kazakhstan is the most diplomatically influential country in Central Asia, leveraging its geographic size, natural resources, and strategic location. As the world's largest landlocked country, it plays a vital role in connecting Europe and Asia. Kazakhstan is a founding member of the Eurasian Economic Union (EAEU) and hosts critical summits like the Astana Peace Talks. Its vast oil and gas reserves, which contribute significantly to its economy, also boost its geopolitical leverage.",
+			image: "https://www.actumma.com/wp-content/uploads/2022/02/Shavkat-Rakhmonov-1024x682.jpg",
+			source: "https://www.reuters.com/article/us-kazakhstan-diplomacy-idUSKBN1L500L"
+		},
+		{
+			question: "Which country is China's main rival in Asia?",
+			options: ["India", "Vietnam", "South Korea", "Japan"],
+			correctOption: 0,
+			explanation: "India is China's primary rival in Asia, with competition spanning economic, military, and geopolitical domains. Both nations have comparable populations, exceeding 1.4 billion people, and are among the fastest-growing economies globally. Their rivalry is evident in border disputes, such as in the Himalayan region, and in their race for influence over smaller Asian nations.",
+			image: "https://www.mondedesgrandesecoles.fr/wp-content/uploads/elementor/thumbs/reflexions201434-p7oqr5avh56yhjze0dimzk7q38r5a1q0a5ezbz1kro.jpg",
+			source: "https://www.sipri.org/commentary/topical-backgrounder/2023/chinas-rivalry-india-and-asia"
+		},
+		{
+			question: "Which country is the leader in traditional martial arts?",
+			options: ["China", "South Korea", "Thailand", "Japan"],
+			correctOption: 0,
+			explanation: "China is the global leader in traditional martial arts, with styles like Kung Fu, Tai Chi, and Wing Chun deeply rooted in its cultural heritage. These practices date back thousands of years and combine physical techniques with philosophy and spirituality. Kung Fu, for instance, has become a global phenomenon, popularized by iconic figures like Bruce Lee and Jackie Chan.",
+			image: "https://cdn.onefc.com/wp-content/uploads/2020/09/Felipe-Lobo-Yodpanomrung-Jitmuangnon-Muay-Thai-1920X1280-29.jpg",
+			source: "https://www.china.org.cn/china/2023-06/14/content_37530717.htm"
+		},
+		{
+			question: "Which country dominates the semiconductor market?",
+			options: ["China", "Taiwan", "Japan", "South Korea"],
+			correctOption: 1,
+			explanation: "Taiwan leads the global semiconductor market, producing over 60% of the world's semiconductors and more than 90% of advanced chips. Companies like TSMC (Taiwan Semiconductor Manufacturing Company) are at the forefront of this industry, supplying critical components for electronics, including smartphones, cars, and military systems.",
+			image: "https://www.fairobserver.com/wp-content/uploads/2023/02/Why-Semiconductors-Are-a-Really-Big-Deal.jpg",
+			source: "https://www.bloomberg.com/news/articles/2023-07-14/taiwan-semiconductor-market-share-2023"
+		},
+		{
+			question: "Which country is the most innovative in green technologies?",
+			options: ["South Korea", "Taiwan", "Singapore", "Japan"],
+			correctOption: 3,
+			explanation: "Japan leads in green technology innovation, with advancements in renewable energy, hydrogen fuel cells, and energy-efficient systems. Companies like Toyota have pioneered hydrogen-powered vehicles, such as the Mirai, and the country invests heavily in solar and wind energy development. In 2022, Japan allocated over $17 billion to green technology initiatives.",
+			image: "https://sf2.autoplus.fr/wp-content/uploads/autoplus/2023/10/sakura_proto_front.jpg",
+			source: "https://www.iea.org/reports/japan-energy-policies"
+		},
+		{
+			question: "Which Asian country has the largest Muslim population in the world, giving it significant influence in the Islamic world?",
+			options: ["Pakistan", "Bangladesh", "Indonesia", "Malaysia"],
+			correctOption: 2,
+			explanation: "Indonesia is home to the world’s largest Muslim population, with approximately 231 million Muslims, making up nearly 87% of its population. This demographic gives Indonesia considerable influence in the Islamic world, particularly as a leader in promoting moderate Islam and fostering interfaith dialogue.",
+			image: "https://i.ytimg.com/vi/sS0mznHsCnA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAkyfXbUxiPpnoH_E_6KxHEbyy8ZA",
+			source: "https://www.pewresearch.org/fact-tank/2023/04/12/indonesia-largest-muslim-population/"
+		}
+	];
+
+
+
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
+
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
+
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
+
+
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
+
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+	}
+
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
+		
+		if (score < questions.length / 2) {
+			quizContainer.classList.add("low-score");
+		}
+		if (score >= questions.length - 1) {
+			confetti({
+				particleCount: 100,
+				spread: 70,
+				origin: { y: 0.6 }
+			});
+		}
+
+
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
+
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: "Pathetic. Were you even awake during the quiz? I've seen toddlers do better. 🍼🤡 Maybe trivia isn’t your thing. Stick to TikTok. 📱",
+				animation: "shake",
+				emoji: "💩"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: "Alright, not the worst, but let's face it—you won't be winning any awards. Enzo, Lucas, Thibault, and Ewen are rolling on the floor laughing. 😂",
+				animation: "bounce",
+				emoji: "🤔"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: "Bravo... or should I say, *nice cheat sheet*. 🤨 Nobody gets this good without a little 'extra help'. 🕵️‍♂️ You’re not fooling me.",
+				animation: "zoom",
+				emoji: "🔥"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
+	loadQuestion();
+
+</script>
 </body>
 </html>

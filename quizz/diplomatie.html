@@ -1,20 +1,518 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Africa</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+            font-weight: bold;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            padding: 0 15px;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        @keyframes correct-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .correct.animate {
+            animation: correct-animation 0.5s ease forwards;
+        }
+
+        .incorrect.animate {
+            animation: incorrect-animation 0.5s ease forwards;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #ddd;
+        }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
+
+		#explanation a:hover {
+			text-decoration: underline;
+		}
+
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+		
+		@keyframes shake {
+			0%, 100% {
+				transform: translateX(0);
+			}
+			25% {
+				transform: translateX(-10px);
+			}
+			50% {
+				transform: translateX(10px);
+			}
+			75% {
+				transform: translateX(-5px);
+			}
+		}
+
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% {
+				transform: translateY(0);
+			}
+			40% {
+				transform: translateY(-20px);
+			}
+			60% {
+				transform: translateY(-10px);
+			}
+		}
+
+		@keyframes zoom {
+			0% {
+				transform: scale(0.8);
+				opacity: 0;
+			}
+			50% {
+				transform: scale(1.2);
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.result-message.shake {
+			animation: shake 1s ease-in-out;
+		}
+
+		.result-message.bounce {
+			animation: bounce 1.5s ease-in-out;
+		}
+
+		.result-message.zoom {
+			animation: zoom 1.5s ease-out;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+<div class="quiz-container" id="quiz-container">
+    <header>
+        <h1>Quiz: Diplomacy</h1>
+        <p>Test your knowledge about Diplomacy and its geopolitical powers!</p>
+    </header>
+    <div class="quiz-header">
+        <span id="question-counter">Question 1 / 12</span>
+    </div>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://via.placeholder.com/600x300" alt="Question Image">
+        <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button onclick="checkAnswer(this, 1)">Japan</button>
+            <button onclick="checkAnswer(this, 2)">India</button>
+            <button onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+    </div>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+</div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+
+
+<script>
+    let currentQuestion = 0;
+	let score = 0;
+
+	const questions = [
+		{
+			question: "Which country is the main mediator in conflicts in Southeast Asia?",
+			options: ["Vietnam", "Malaysia", "Indonesia", "Thailand"],
+			correctOption: 2,
+			explanation: "Indonesia plays a central role in mediating conflicts in Southeast Asia due to its size, strategic location, and status as a founding member of ASEAN. With a population of over 270 million (World Bank), it is the largest nation in the region and has spearheaded peace efforts such as the 2005 Aceh peace agreement. Its active diplomacy in Myanmar and the South China Sea further cements its position as a regional leader in conflict resolution.",
+			image: "https://universboxe.com/cdn/shop/articles/LE_MUAY_THAI_UN_DES_ARTS_MARTIAUX_LES_PLUS_COMPLETS_AU_MONDE_414e072a-ee07-44b5-a413-5aa672e9620b_1024x.jpg?v=1593178898",
+			source: "https://www.nti.org/analysis/articles/indonesia-and-southeast-asia/"
+		},
+		{
+			question: "Which country is the diplomatic leader in the Gulf?",
+			options: ["Iran", "Iraq", "Saudi Arabia", "Qatar"],
+			correctOption: 2,
+			explanation: "Saudi Arabia wields significant diplomatic influence in the Gulf, driven by its economic power and role as custodian of Islam's two holiest sites. It is the world’s largest oil exporter, accounting for over 10% of global production in 2023 (OPEC), which bolsters its geopolitical leverage. As a key member of the Gulf Cooperation Council, Saudi Arabia mediates conflicts, such as in Yemen, and hosts major summits on regional security and economic development.",
+			image: "https://pbs.twimg.com/media/Fxiv_5NakAEGg0b.jpg:large",
+			source: "https://www.opec.org/opec_web/en/"
+		},
+		{
+			question: "Which country exerts the most influence in the Maghreb?",
+			options: ["Tunisia", "Algeria", "Morocco", "Libya"],
+			correctOption: 2,
+			explanation: "Morocco leads in the Maghreb due to its stable political system, growing economy, and proactive foreign policy. The country attracted over 12 million tourists in 2023, making tourism a significant contributor to its GDP (World Tourism Organization). Morocco’s role in mediating African and Middle Eastern conflicts and its strong trade ties with Europe solidify its influence across the region.",
+			image: "https://diggers-chocolat.com/wp-content/uploads/2024/11/ou-acheter-el-mordjene.jpg",
+			source: "https://www.moroccoworldnews.com/2023/10/292800"
+		},
+		{
+			question: "Which country dominates politics in Central America?",
+			options: ["Guatemala", "Costa Rica", "Panama", "Nicaragua"],
+			correctOption: 2,
+			explanation: "Panama’s control of the Panama Canal, through which 6% of global trade passes annually, gives it unparalleled influence in Central American politics. Its stable economy and role as a global trade hub position Panama as a diplomatic leader, mediating regional issues and fostering economic cooperation.",
+			image: "https://ibp.info6tm.fr/api/v1/files/6412ee1236cfbd40ae6f483f/methodes/article_small_portrait/image.jpg",
+			source: "https://www.panamacanal.com"
+		},
+		{
+			question: "Which country holds the most diplomatic weight in Southern Africa?",
+			options: ["Zimbabwe", "Zambia", "South Africa", "Botswana"],
+			correctOption: 2,
+			explanation: "South Africa is Southern Africa’s diplomatic heavyweight, contributing significantly to the African Union and SADC. With the continent’s second-largest economy, valued at over $400 billion in 2023 (World Bank), it frequently mediates regional conflicts, such as in Zimbabwe and Eswatini, and advocates for African interests on the global stage.",
+			image: "https://images.ladepeche.fr/api/v1/images/view/5c1cac863e45463c225c9959/large/image.jpg",
+			source: "https://www.worldbank.org/en/country/southafrica"
+		},
+		{
+			question: "Which country is a permanent member of the UN Security Council and has veto power?",
+			options: ["Germany", "Japan", "India", "Russia"],
+			correctOption: 3,
+			explanation: "Russia’s status as a permanent member of the UN Security Council grants it veto power over key global decisions. This position enables Russia to shape international policies on issues like sanctions, peacekeeping, and arms control. With a military budget exceeding $80 billion in 2023 (SIPRI), Russia underscores its global power in diplomacy and security.",
+			image: "https://peacekeeping.un.org/sites/default/files/styles/1200x500/public/field/image/image770x420cropped_162.jpg?itok=k-xTqxSz",
+			source: "https://www.sipri.org"
+		},
+		{
+			question: "Which country played a key role in the Camp David peace accords?",
+			options: ["United States", "United Kingdom", "France", "Russia"],
+			correctOption: 0,
+			explanation: "The United States facilitated the 1978 Camp David peace accords between Egypt and Israel, marking a historic step toward peace in the Middle East. The agreement, which led to Egypt recognizing Israel, highlights the U.S.’s long-standing role as a mediator in the region. With over $3 billion in annual aid to Egypt and Israel (USAID), the U.S. continues to influence peace efforts.",
+			image: "https://perspective.usherbrooke.ca/bilan/voute/bm/sousvoute1/gouvernementbegin_israel_1977.jpg",
+			source: "https://www.history.com/topics/middle-east/camp-david-accords"
+		},
+		{
+			question: "Which country hosted crucial negotiations in 2022 to revive the Iranian nuclear deal?",
+			options: ["Oman", "Kuwait", "Bahrain", "Qatar"],
+			correctOption: 3,
+			explanation: "Qatar hosted key negotiations in 2022 aimed at reviving the Iranian nuclear deal. As a neutral mediator with strong ties to both Western nations and Iran, Qatar has positioned itself as a critical player in Middle Eastern diplomacy. Its GDP per capita of $85,000 (IMF) and extensive energy resources further bolster its diplomatic standing.",
+			image: "https://cdn.i24news.tv/uploads/2d/f1/9a/88/32/bf/3c/bc/2b/15/c5/04/ec/c3/47/61/2df19a8832bf3cbc2b15c504ecc34761.png?width=1000",
+			source: "https://www.reuters.com/article/us-iran-nuclear-qatar-idUSKBN2A200S"
+		},
+		{
+			question: "Which country hosts the headquarters of the African Union?",
+			options: ["Kenya", "South Africa", "Nigeria", "Ethiopia"],
+			correctOption: 3,
+			explanation: "Ethiopia, specifically its capital Addis Ababa, is home to the African Union headquarters. Hosting over 50 summits annually, Ethiopia serves as a hub for addressing continental issues such as economic development, peacekeeping, and regional integration.",
+			image: "https://static.wixstatic.com/media/ebac50_0d916739544a4686aa0f9a6e98877329~mv2_d_1449_1299_s_2.jpg/v1/fit/w_2500,h_1330,al_c/ebac50_0d916739544a4686aa0f9a6e98877329~mv2_d_1449_1299_s_2.jpg",
+			source: "https://au.int/en/overview"
+		},
+		{
+			question: "Which country is the main mediator in Israeli-Palestinian negotiations?",
+			options: ["United Kingdom", "United States", "France", "Russia"],
+			correctOption: 1,
+			explanation: "The United States has been the principal mediator in Israeli-Palestinian negotiations for decades, including the Oslo Accords in 1993. With annual aid exceeding $3.8 billion to Israel (USAID), the U.S. leverages its financial and diplomatic resources to influence peace talks.",
+			image: "https://via.placeholder.com/600x300",
+			source: "https://www.usaid.gov/who-we-are/organization"
+		},
+		{
+			question: "Which European country is famous for its policy of neutrality and hosts numerous international organizations?",
+			options: ["Austria", "Belgium", "Switzerland", "Sweden"],
+			correctOption: 2,
+			explanation: "Switzerland’s neutrality and stability make it a global hub for diplomacy, hosting organizations like the United Nations in Geneva and the World Trade Organization. It also mediated over 100 international conflicts in the past decade.",
+			image: "https://media.gqmagazine.fr/photos/60db23f824ddaa5ec8e00200/1:1/w_1079,h_1079,c_limit/eg.png",
+			source: "https://www.swissinfo.ch"
+		},
+		{
+			question: "Which country brokered a peace agreement between Ethiopia and Eritrea in 2018?",
+			options: ["Saudi Arabia", "Qatar", "Kuwait", "United Arab Emirates"],
+			correctOption: 3,
+			explanation: "The UAE brokered the 2018 peace agreement between Ethiopia and Eritrea, ending a two-decade conflict. With over $23 billion invested in East Africa by 2023, the UAE has established itself as a key player in regional diplomacy and development.",
+			image: "https://www.partir-a-dubai.com/wp-content/uploads/2022/06/burj-khalifa-vue-atthetop-1-1024x768.jpg",
+			source: "https://www.imf.org/en/Countries/ARE"
+		},
+		{
+			question: "Which country mediated the Dayton Peace Accords?",
+			options: ["United Kingdom", "United States", "Germany", "France"],
+			correctOption: 1,
+			explanation: "The United States mediated the Dayton Peace Accords in 1995, bringing an end to the Bosnian War. Held in Dayton, Ohio, the agreement marked a turning point in U.S. diplomacy, demonstrating its ability to resolve conflicts in Europe.",
+			image: "https://upload.wikimedia.org/wikipedia/commons/1/13/DaytonAgreement.jpg",
+			source: "https://www.history.com/topics/1990s/dayton-peace-accords"
+		},
+		{
+			question: "Which country played a key role in negotiations leading to the Paris Climate Agreement in 2015?",
+			options: ["Germany", "United Kingdom", "France", "United States"],
+			correctOption: 2,
+			explanation: "France hosted and led negotiations for the 2015 Paris Climate Agreement, securing commitments from nearly 200 nations to reduce greenhouse gas emissions. France solidified its leadership in global environmental diplomacy.",
+			image: "https://pokaa.fr/wp-content/uploads/2018/04/francois-hollande-strasbourg.jpg",
+			source: "https://www.iea.org/reports/france-energy-policies"
+		}
+	];
+
+
+
+
+
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
+
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
+
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
+
+
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
+
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+	}
+
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
+
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
+
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: `Clearly, English is not your strong suit. Don't worry, here's a translation: "Tu ne comprends rien à l'anglais, tu devrais retourner à l'école primaire. T'es une merde." 💀`,
+				animation: "shake",
+				emoji: "📚"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: `Not bad, but I bet you struggled with the English. Let me help: "Pas mal, mais franchement, tu galères trop avec l'anglais. T'es une merde, avoue." 🙃`,
+				animation: "bounce",
+				emoji: "🤔"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: `Okay, good score! But honestly, did you even understand the questions? Here's a translation: "Bon score ! Mais honnêtement, t'as compris les questions ? Laisse-moi traduire pour toi, t'es une merde." 😏`,
+				animation: "zoom",
+				emoji: "🔥"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
+	loadQuestion();
+
+</script>
 </body>
 </html>

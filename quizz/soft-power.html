@@ -1,20 +1,535 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Soft Power</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+            font-weight: bold;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            padding: 0 15px;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        @keyframes correct-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .correct.animate {
+            animation: correct-animation 0.5s ease forwards;
+        }
+
+        .incorrect.animate {
+            animation: incorrect-animation 0.5s ease forwards;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #ddd;
+        }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
+
+		#explanation a:hover {
+			text-decoration: underline;
+		}
+
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+				background-color: #3a2fbf;
+			}
+			
+			@keyframes shake {
+			0%, 100% {
+				transform: translateX(0);
+			}
+			25% {
+				transform: translateX(-10px);
+			}
+			50% {
+				transform: translateX(10px);
+			}
+			75% {
+				transform: translateX(-5px);
+			}
+		}
+
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% {
+				transform: translateY(0);
+			}
+			40% {
+				transform: translateY(-20px);
+			}
+			60% {
+				transform: translateY(-10px);
+			}
+		}
+
+		@keyframes zoom {
+			0% {
+				transform: scale(0.8);
+				opacity: 0;
+			}
+			50% {
+				transform: scale(1.2);
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.result-message.shake {
+			animation: shake 1s ease-in-out;
+		}
+
+		.result-message.bounce {
+			animation: bounce 1.5s ease-in-out;
+		}
+
+		.result-message.zoom {
+			animation: zoom 1.5s ease-out;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+<div class="quiz-container" id="quiz-container">
+    <header>
+        <h1>Quiz: Soft Power</h1>
+        <p>Test your knowledge about Soft Power!</p>
+    </header>
+    <div class="quiz-header">
+        <span id="question-counter">Question 1 / 12</span>
+    </div>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://via.placeholder.com/600x300" alt="Question Image">
+        <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button onclick="checkAnswer(this, 1)">Japan</button>
+            <button onclick="checkAnswer(this, 2)">India</button>
+            <button onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+    </div>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+</div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+
+
+<script>
+    let currentQuestion = 0;
+	let score = 0;
+
+	const questions = [
+		{
+			question: "Which country is considered the world's leading soft power due to its cultural and technological influence (movies, music, technology)?",
+			options: ["United States", "United Kingdom", "China", "Japan"],
+			correctOption: 0,
+			explanation: "The United States is the global leader in soft power, leveraging its dominance in industries like Hollywood, music, and technology. Blockbuster films, iconic music stars, and global tech giants such as Apple, Google, and Microsoft enhance its cultural and technological reach.",
+			image: "https://static.hitek.fr/img/up_m/554114337/thor.jpg",
+			source: "https://www.statista.com/statistics/272314/revenue-of-the-us-entertainment-industry/"
+		},
+		{
+			question: "Which country has exercised significant soft power in Africa through its network of schools, universities, and cultural centers?",
+			options: ["United Kingdom", "France", "Portugal", "Belgium"],
+			correctOption: 1,
+			explanation: "France exerts soft power in Africa through institutions such as the Alliance Française, French universities, and Lycée Français schools. These institutions promote French language and culture, strengthening cultural and diplomatic ties.",
+			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-J3lI7E_IigVOtj9TrdO9ty2TvG6Chulx4g&s",
+			source: "https://www.campusfrance.org/en"
+		},
+		{
+			question: "Which country has become a global leader in the K-pop music and film industry, contributing to its international soft power?",
+			options: ["Japan", "South Korea", "China", "Taiwan"],
+			correctOption: 1,
+			explanation: "South Korea’s cultural exports, led by K-pop and cinema, have transformed it into a global soft power giant. Groups like BTS and Blackpink dominate global music charts, while films such as Parasite have won international acclaim.",
+			image: "https://scontent.fctt1-1.fna.fbcdn.net/v/t1.6435-9/105692437_10159029327602923_2434037269419202977_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=9Bekf7xEezcQ7kNvgF60YDV&_nc_zt=23&_nc_ht=scontent.fctt1-1.fna&_nc_gid=AI_AqwlsLizA1uXXCKzsJgk&oh=00_AYCoRFs7nPvYzaBLClhelNwTe6eAjQi1iBOCqgrrthDu_Q&oe=67A37C33",
+			source: "https://www.statista.com/statistics/1006713/south-korea-kpop-market-size/"
+		},
+		{
+			question: "Which country uses its production of animated films and manga as a soft power tool to promote its culture?",
+			options: ["China", "South Korea", "Taiwan", "Japan"],
+			correctOption: 3,
+			explanation: "Japan’s anime and manga industries have become cornerstones of its global cultural influence. Franchises like Naruto, One Piece, and Studio Ghibli films captivate audiences worldwide, generating billions in revenue annually.",
+			image: "https://leclaireur.fnac.com/wp-content/uploads/2024/03/gto.jpg",
+			source: "https://www.statista.com/statistics/1021432/japan-anime-market-size/"
+		},
+		{
+			question: "Which country wields significant global influence through its football industry, hosting top international players and organizing major tournaments?",
+			options: ["Spain", "Germany", "France", "England"],
+			correctOption: 3,
+			explanation: "England’s Premier League is the most-watched football league globally, with a fan base spanning over 200 countries and broadcasting revenues exceeding $5 billion annually.",
+			image: "https://images.bfmtv.com/XNxc7enIcZALTJoGHbCZ7B_f64w=/0x60:800x510/images/-799246.jpg",
+			source: "https://www.deloitte.com/insights"
+		},
+		{
+			question: "Which country initiated the 'Go Out Policy,' encouraging its businesses and culture to spread abroad to strengthen its soft power?",
+			options: ["China", "Japan", "South Korea", "Singapore"],
+			correctOption: 0,
+			explanation: "China’s 'Go Out Policy,' launched in 1999, has facilitated the global expansion of Chinese businesses, cultural institutions, and media. Platforms like CGTN and Confucius Institutes promote Chinese language and culture internationally.",
+			image: "https://i.pinimg.com/originals/2b/58/06/2b5806b21046391aa3aac0e736fcc906.jpg",
+			source: "https://www.china.org.cn/china/2019-06/18/content_74884635.htm"
+		},
+		{
+			question: "Which country has the largest number of influential tech brands, greatly contributing to its global reach through innovation and technology?",
+			options: ["Japan", "United States", "Germany", "China"],
+			correctOption: 1,
+			explanation: "The U.S. dominates the global tech landscape with companies like Apple, Google, Amazon, and Tesla, which collectively generated over $1 trillion in revenue in 2023 (Statista).",
+			image: "https://french.news.cn/20230904/f82d22e5282e4176aac267fa9520fa63/20230904f82d22e5282e4176aac267fa9520fa63_XxjwsfF007017_20230904_CBMFN0A001.jpg",
+			source: "https://www.statista.com/statistics/266219/revenue-of-top-us-tech-companies/"
+		},
+		{
+			question: "Which country uses video games as a soft power strategy by funding studios and hosting some of the world's largest e-sports tournaments?",
+			options: ["Japan", "South Korea", "China", "United States"],
+			correctOption: 1,
+			explanation: "South Korea is a global hub for video games and e-sports, with popular titles like League of Legends and Overwatch developed by Korean studios.",
+			image: "https://img.freepik.com/premium-photo/mario-muscly-gangster-tattooed-cartoon-with-mean-face-no-background_983420-126624.jpg",
+			source: "https://www.statista.com/statistics/1081916/south-korea-e-sports-market-size/"
+		},
+		{
+			question: "Which country has seen its global influence soar thanks to TikTok influencers and viral dance trends?",
+			options: ["United States", "United Kingdom", "Canada", "Australia"],
+			correctOption: 0,
+			explanation: "TikTok, owned by the U.S.-based ByteDance, has revolutionized global pop culture with viral trends and influencers shaping music, fashion, and lifestyles.",
+			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPIb7qcnrvWHvnDl6dh69oKpwmwekVtczvvA&s",
+			source: "https://www.statista.com/statistics/316869/tiktok-global-user-statistics/"
+		},
+		{
+			question: "Which country has made its Netflix series a major tool for spreading its pop culture globally, notably with shows like *Elite*?",
+			options: ["France", "South of Korea", "Spain", "Portugal"],
+			correctOption: 2,
+			explanation: "Spain’s Netflix productions, such as Elite and Money Heist, have achieved international acclaim, showcasing Spanish language and culture to a global audience.",
+			image: "https://cloudfront-eu-central-1.images.arcpublishing.com/leparisien/RSDWDOXO7NB5LFTHTQBBQ3AJFA.jpg",
+			source: "https://www.statista.com/statistics/1260502/netflix-revenue-per-user-europe/"
+		},
+		{
+			question: "Which country attracts content creators by offering exceptional conditions for producing films, YouTube videos, and other media content thanks to its breathtaking landscapes and film industry?",
+			options: ["Australia", "Canada", "Ireland", "New Zealand"],
+			correctOption: 3,
+			explanation: "New Zealand’s stunning landscapes have made it a favorite destination for filmmakers and creators. Productions like The Lord of the Rings and Avatar have showcased its natural beauty to global audiences.",
+			image: "https://i.ytimg.com/vi/SWEYLpG70AI/maxresdefault.jpg",
+			source: "https://www.nzfilm.co.nz/"
+		},
+		{
+			question: "Which country has become a hub for cryptocurrencies and tech startups, attracting young entrepreneurs seeking an innovative ecosystem?",
+			options: ["Estonia", "Latvia", "Lithuania", "Finland"],
+			correctOption: 0,
+			explanation: "Estonia has positioned itself as a leader in digital innovation, with its 'e-Residency' program allowing entrepreneurs worldwide to establish companies remotely.",
+			image: "https://media.licdn.com/dms/image/v2/D4E03AQFYncQyxuHv2w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1722956530350?e=1741824000&v=beta&t=peuvmoGn-RUo8Iru5n___NXy67RUQp-NyD_WvvCGGmM",
+			source: "https://startupestonia.ee/"
+		},
+		{
+			question: "Which Asian country attracts the most international students?",
+			options: ["Japan", "South Korea", "Singapore", "Malaysia"],
+			correctOption: 2,
+			explanation: "Singapore is a top destination for international students, hosting over 50,000 in 2023 (Ministry of Education Singapore). Its globally renowned universities, such as NUS and NTU, make it a hub for education and research in Asia.",
+			image: "https://www.voyagethailande.fr/cdn/wordpress/th_1/2018/12/carte-thailande.jpg",
+			source: "https://www.moe.gov.sg"
+		},
+		{
+			question: "Which African country uses its influence in music, especially Afrobeat, to project soft power globally?",
+			options: ["Ghana", "Kenya", "Nigeria", "Morocco"],
+			correctOption: 2,
+			explanation: "Nigeria’s Afrobeat artists like Burna Boy, Wizkid, and Davido dominate global music charts, bringing African rhythms to a worldwide audience.",
+			image: "https://www.radiofrance.fr/s3/cruiser-production/2023/01/e4af85b9-497f-416c-ae6c-184f14bea942/1200x680_1.jpg",
+			source: "https://www.pwc.com/gx/en/industries/entertainment-media/global-entertainment-media-outlook.html"
+		},
+		{
+			question: "Which European country is renowned for using its environmental initiatives and social policies as soft power tools?",
+			options: ["Denmark", "Finland", "Norway", "Sweden"],
+			correctOption: 3,
+			explanation: "Sweden leads in sustainability, with policies promoting renewable energy and social welfare. Initiatives like Greta Thunberg’s climate activism and Sweden’s global aid programs project its values.",
+			image: "https://i.ytimg.com/vi/sJothzihatA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCDiC0oa2S3VDU-X5BQSg99UtEE3g",
+			source: "https://www.sweden.se/nature/sustainable-sweden/"
+		},
+		{
+			question: "Which Latin American country has gained significant soft power through its influence in football and Carnival culture?",
+			options: ["Mexico", "Argentina", "Brazil", "Peru"],
+			correctOption: 2,
+			explanation: "Brazil is synonymous with football and Carnival, both of which captivate global audiences. The Brazilian football industry, valued at over $1.5 billion in 2023 (FIFA), and the Rio Carnival, attracting over 2 million tourists annually, enhance Brazil’s global image.",
+			image: "https://img.20mn.fr/vCAqFh8bQE-E6BythdFhRik/1444x920_des-membres-de-l-ecole-de-samba-mocidade-independente-de-padre-miguel-se-produisent-lors-de-la-derniere-nuit-du-defile-du-carnaval-au-sambodrome-marques-de-sapucai-a-rio-de-janeiro-bresil-le-12-fevrier-2024",
+			source: "https://www.fifa.com"
+		}
+	];
+
+
+
+
+
+
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
+
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
+
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
+
+
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
+
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+	}
+
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
+
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
+
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: `Yikes. Your English is so bad that even Siri is like, 'Sorry, I didn’t understand that.' Time to hit Duolingo, my dude. 🦉`,
+				animation: "shake",
+				emoji: "🛑"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: `Bro, your performance just triggered a LinkedIn post titled "Why Gen Z is failing at basic English." Get ready for recruiters to block you. 📉`,
+				animation: "bounce",
+				emoji: "📧"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: `Congrats on your score! But let’s be real—you cheated. Don’t worry, though. I’m sure you’ll make a great "expert in excuses" someday. 🚩`,
+				animation: "zoom",
+				emoji: "🚩"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
+	loadQuestion();
+
+</script>
 </body>
 </html>

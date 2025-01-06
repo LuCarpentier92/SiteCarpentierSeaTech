@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz : Amérique</title>
+    <title>Quiz: America</title>
     <style>
         /* Global Styles */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,40 +19,45 @@
 
         .quiz-container {
             width: 95%;
-            max-width: 900px;
+            max-width: 800px;
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             text-align: center;
             margin: 20px;
+            padding: 20px;
+            position: relative;
         }
 
         header {
             background-color: #4a3aff;
             color: white;
-            padding: 30px 20px;
-            border-radius: 10px 10px 0 0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
         header h1 {
             margin: 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
 
         header p {
             margin: 10px 0 0;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         .quiz-header {
             margin: 20px 0;
             font-size: 1.2rem;
             color: #4a3aff;
+            font-weight: bold;
         }
 
         .question-container {
             margin: 20px 0;
+            padding: 0 15px;
         }
 
         .question-container img {
@@ -60,12 +65,13 @@
             max-width: 600px;
             border-radius: 10px;
             margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .question-container h2 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #333;
-            padding: 0 10px;
+            margin-bottom: 15px;
         }
 
         .options-container {
@@ -79,18 +85,20 @@
         .options-container button {
             width: 90%;
             max-width: 400px;
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 12px 20px;
+            font-size: 1.1rem;
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
         }
 
         .options-container button:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
         }
 
         .correct {
@@ -126,177 +134,310 @@
             padding: 15px;
             font-size: 1rem;
             color: #555;
-            background-color: #f1f1f1;
-            border-radius: 5px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
             max-width: 600px;
+            border: 1px solid #ddd;
         }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
 
-        .next-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #ff7f50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+		#explanation a:hover {
+			text-decoration: underline;
+		}
 
-        .next-button:hover {
-            background-color: #e65e3f;
-        }
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<div class="quiz-container">
+<div class="quiz-container" id="quiz-container">
     <header>
-        <h1>Quiz : Amérique</h1>
-        <p>Testez vos connaissances sur l'Amérique et ses forces géopolitiques !</p>
+        <h1>Quiz: America</h1>
+        <p>Test your knowledge about America and its geopolitical powers!</p>
     </header>
     <div class="quiz-header">
         <span id="question-counter">Question 1 / 12</span>
     </div>
-    <div class="question-container">
-        <img src="https://via.placeholder.com/600x300" alt="Placeholder">
-        <h2 id="question-text">Quel pays est le leader militaire d'Amérique du Sud ?</h2>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://via.placeholder.com/600x300" alt="Question Image">
+        <h2 id="question-text">Which country is the military leader of South America?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Argentina</button>
+            <button onclick="checkAnswer(this, 1)">Colombia</button>
+            <button onclick="checkAnswer(this, 2)">Brazil</button>
+            <button onclick="checkAnswer(this, 3)">Chile</button>
+        </div>
     </div>
-    <div class="options-container">
-        <button class="default" onclick="checkAnswer(this, 0)">Argentine</button>
-        <button class="default" onclick="checkAnswer(this, 1)">Colombie</button>
-        <button class="default" onclick="checkAnswer(this, 2)">Brésil</button>
-        <button class="default" onclick="checkAnswer(this, 3)">Chili</button>
-    </div>
-    <div class="explanation" id="explanation" style="display: none;">
-        Le Brésil possède la plus grande force militaire d'Amérique du Sud, avec des capacités terrestres, aériennes et navales supérieures.
-    </div>
-    <button class="next-button" onclick="nextQuestion()">Question suivante</button>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
 </div>
+
+
 
 <script>
     let currentQuestion = 0;
+	let score = 0;
 
-    const questions = [
-        {
-            question: "Quel pays est le leader militaire d'Amérique du Sud ?",
-            options: ["Argentine", "Colombie", "Brésil", "Chili"],
-            correctOption: 2,
-            explanation: "Le Brésil possède la plus grande force militaire d'Amérique du Sud, avec des capacités terrestres, aériennes et navales supérieures."
-        },
-        {
-            question: "Quel pays a la meilleure force anti-narcotiques d'Amérique centrale ?",
-            options: ["Guatemala", "Honduras", "Colombie", "Panama"],
-            correctOption: 2,
-            explanation: "La Colombie dispose des forces anti-narcotiques les plus développées et expérimentées de la région, fruit d'années de lutte contre les cartels."
-        },
-        {
-            question: "Quel pays a le plus d'influence culturelle en Amérique latine ?",
-            options: ["Argentine", "Colombie", "Mexique", "Chili"],
-            correctOption: 2,
-            explanation: "Le Mexique exerce une influence culturelle majeure à travers ses productions télévisuelles, sa musique et son cinéma."
-        },
-        {
-            question: "Quel pays a le plus d'influence dans le commerce maritime panaméricain ?",
-            options: ["Brésil", "Colombie", "Panama", "Venezuela"],
-            correctOption: 2,
-            explanation: "Grâce au canal de Panama, le pays contrôle une route maritime cruciale pour le commerce international."
-        },
-        {
-            question: "Comment les États-Unis maintiennent-ils une présence militaire dans la région des Caraïbes ?",
-            options: ["Bases en République Dominicaine", "Base navale de Guantanamo à Cuba", "Bases à Puerto Rico", "Bases aux Bahamas"],
-            correctOption: 1,
-            explanation: "La base de Guantanamo permet aux États-Unis de maintenir une présence militaire stratégique dans les Caraïbes."
-        },
-        {
-            question: "Quel pays d'Amérique latine est un leader en termes de production de pétrole et de gaz naturel ?",
-            options: ["Brésil", "Mexique", "Venezuela", "Colombie"],
-            correctOption: 2,
-            explanation: "Le Venezuela possède les plus grandes réserves prouvées de pétrole au monde et est un acteur majeur dans la production d'hydrocarbures."
-        },
-        {
-            question: "Quel pays d'Amérique latine est le plus grand exportateur mondial de produits agricoles comme le soja et le café ?",
-            options: ["Argentine", "Colombie", "Brésil", "Pérou"],
-            correctOption: 2,
-            explanation: "Le Brésil est le premier exportateur mondial de soja et de café, jouant un rôle clé dans le commerce mondial des produits agricoles."
-        },
-        {
-            question: "Quel pays des Amériques est le principal acteur de l'Accord États-Unis-Mexique-Canada (USMCA) ?",
-            options: ["États-Unis", "Canada", "Mexique", "Brésil"],
-            correctOption: 0,
-            explanation: "L'USMCA est dominé par les États-Unis, qui sont les principaux acteurs de cet accord commercial nord-américain."
-        },
-        {
-            question: "Quel pays d'Amérique latine est le plus grand producteur mondial de cuivre ?",
-            options: ["Pérou", "Chili", "Mexique", "Bolivie"],
-            correctOption: 1,
-            explanation: "Le Chili est le premier producteur mondial de cuivre, une ressource essentielle pour de nombreux secteurs industriels."
-        },
-        {
-            question: "Quel pays d'Amérique centrale est souvent qualifié de 'leader écologique' ?",
-            options: ["Panama", "Costa Rica", "Nicaragua", "Honduras"],
-            correctOption: 1,
-            explanation: "Le Costa Rica est reconnu pour son engagement en matière d'environnement et d'énergies renouvelables, un modèle en Amérique latine."
-        },
-        {
-            question: "Quel pays d'Amérique du Nord a accueilli le sommet du G7 en 2018 ?",
-            options: ["États-Unis", "Mexique", "Canada", "Brésil"],
-            correctOption: 2,
-            explanation: "Le Canada a accueilli le sommet du G7 en 2018, renforçant son influence dans les discussions diplomatiques mondiales."
-        },
-        {
-            question: "Quel pays d'Amérique latine est le plus grand exportateur de vin ?",
-            options: ["Chili", "Brésil", "Argentine", "Uruguay"],
-            correctOption: 2,
-            explanation: "L'Argentine est un grand exportateur de vin, en particulier vers l'Europe et l'Amérique du Nord, où ses vins sont très appréciés."
-        }
-        // Ajoutez d'autres questions ici
-    ];
+	const questions = [
+		{
+			question: "Which South American country is the military leader in the region?",
+			options: ["Argentina", "Colombia", "Brazil", "Chile"],
+			correctOption: 2,
+			explanation: "Brazil asserts its influence in South America as the region's military leader, underpinned by the substantial size of its armed forces and significant investments in modernization. The country's defense budget is projected to rise from $25.3 billion in 2024 to $29.9 billion by 2028, reflecting a compound annual growth rate of 4.4%. This financial commitment supports the development of advanced military equipment, including the acquisition of F-39 E/F Gripen fighter jets from Saab AB and KC-390 aircraft from Embraer.",
+			image: "https://www.axl.cefan.ulaval.ca/amsudant/images/amerique-Sud-map-clic.png",
+			source: "https://www.army-technology.com/news/brazils-defence-budget-soars-to-29-9bn-by-2028-through-initiatives/?utm_source=chatgpt.com"
+		},
+		{
+			question: "Which Central American country has the most effective anti-narcotics force?",
+			options: ["Guatemala", "Honduras", "Colombia", "Panama"],
+			correctOption: 2,
+			explanation: "Colombia asserts its influence in Central and South America through its extensive experience in combating drug cartels, developed over decades of conflict with organized crime. The country's advanced anti-narcotics strategies are bolstered by cutting-edge technology, comprehensive training, and robust international partnerships, notably with the United States Drug Enforcement Administration (DEA). This collaboration has led to record levels of cocaine seizures and manual eradication, even amid challenges such as the COVID-19 pandemic.",
+			image: "https://static.cnews.fr/sites/default/files/styles/image_750_422/public/000_sawh990816717910_5f73134fc8953_0.jpg?itok=VTPl5hV9",
+			source: "https://co.usembassy.gov/the-u-s-and-colombia-reviewed-positive-advances-in-counternarcotics-efforts-and-recommit-to-continued-cooperation/?utm_source=chatgpt.com"
+		},
+		{
+			question: "Which Latin American country has the most cultural influence?",
+			options: ["Argentina", "Colombia", "Mexico", "Chile"],
+			correctOption: 2,
+			explanation: "Mexico asserts its cultural power across Latin America and globally through its rich heritage, including iconic mariachi music, vibrant art influenced by Frida Kahlo and Diego Rivera, and globally beloved cuisine such as tacos and mole. Mexican cuisine was inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in 2010. Mexican cinema and television, especially telenovelas and films by renowned directors like Guillermo del Toro and Alfonso Cuarón, resonate with audiences worldwide.",
+			image: "https://intrld.com/wp-content/uploads/2016/07/pnl.png",
+			source: "https://whc.unesco.org/en/list/1054/"
+		},
+		{
+			question: "Which country has the most influence in Pan-American maritime trade?",
+			options: ["Brazil", "Colombia", "Panama", "Venezuela"],
+			correctOption: 2,
+			explanation: "Panama wields significant global influence through its control of the Panama Canal, a vital maritime corridor connecting the Atlantic and Pacific Oceans. This strategic waterway facilitates approximately 2.5% of global seaborne trade annually, underscoring its critical role in international commerce. The canal's advanced infrastructure and pivotal position in global logistics enhance Panama's economic and geopolitical standing, solidifying its status as an essential player in regional trade and maritime security.",
+			image: "https://cdn.offshorewind.biz/wp-content/uploads/sites/6/2024/11/12113209/Screenshot-2024-11-12-113157.png",
+			source: "https://www.mckinsey.com/industries/transportation-and-logistics/our-insights/rethinking-the-panama-canal"
+		},
+		{
+			question: "How does the United States maintain a military presence in the Caribbean?",
+			options: ["Bases in the Dominican Republic", "Guantanamo Naval Base in Cuba", "Bases in Puerto Rico", "Bases in the Bahamas"],
+			correctOption: 1,
+			explanation: "The United States projects power in the Caribbean through the Guantanamo Naval Base, a strategic asset for monitoring key maritime routes and addressing regional threats such as drug trafficking and natural disasters. Its location enables rapid deployment of military resources and reinforces U.S. dominance in the Western Hemisphere. This enduring presence highlights the U.S.’s commitment to regional stability and its ability to influence Caribbean geopolitics.",
+			image: "https://media.defense.gov/2022/Feb/15/2002939099/1920/1080/0/220211-A-VH689-623.JPG",
+			source: "https://www.globalsecurity.org/military/facility/guantanamo.htm"
+		},
+		{
+			question: "Which Latin American country is a leader in oil and natural gas production?",
+			options: ["Brazil", "Mexico", "Venezuela", "Colombia"],
+			correctOption: 2,
+			explanation: "Venezuela has long been a key player in global oil and gas production, holding some of the largest proven reserves. The country's oil exports play a crucial role in its economy, despite the challenges it faces due to political instability and international sanctions. Venezuela's vast energy resources contribute to its geopolitical influence, particularly in Latin America.",
+			image: "https://medias.pourlascience.fr/api/v1/images/view/5a82a9628fe56f6b2d4b5d76/wide_1300/image.jpg",
+			source: "https://www.britannica.com/place/Venezuela/Economy"
+		},
+		{
+			question: "Which Latin American country is the world’s largest exporter of agricultural products like soybeans and coffee?",
+			options: ["Argentina", "Colombia", "Brazil", "Peru"],
+			correctOption: 2,
+			explanation: "Brazil's dominance in agricultural exports, particularly soybeans and coffee, underpins its global economic influence. For instance, in 2023, Brazil exported a record 74.5 million metric tons of soybeans to China, accounting for 73% of Brazil's total soybean exports. This agricultural prowess bolsters Brazil's position as a key player in international trade and negotiations.",
+			image: "https://www.addictaide.fr/wp-content/uploads/2023/08/cocaine-marche-1024x686.jpeg",
+			source: "https://www.usda.gov/oce/commodity-market-news/soybeans"
+		},
+		{
+			question: "Which country plays the leading role in the United States-Mexico-Canada Agreement (USMCA)?",
+			options: ["United States", "Canada", "Mexico", "Brazil"],
+			correctOption: 0,
+			explanation: "The United States exerts significant influence through the United States-Mexico-Canada Agreement (USMCA), solidifying its economic dominance in North America. As the largest economy within the pact, the U.S. plays a pivotal role in shaping trade policies, labor standards, and intellectual property laws to its advantage. The USMCA has substantially increased trade among the three countries, with a 28% rise since 2018, reaching a total of $1.6 trillion in 2023.",
+			image: "https://images.radio-canada.ca/q_auto,w_635/v1/ici-info/sports/16x9/soccer-canada-mexique.jpg",
+			source: "https://www.wsj.com/articles/usmca-trade-deal-increases-trade-between-us-canada-and-mexico-11606702159"
+		},
+		{
+			question: "Which Latin American country is the world’s largest copper producer?",
+			options: ["Peru", "Chile", "Mexico", "Bolivia"],
+			correctOption: 1,
+			explanation: "Chile asserts significant global economic influence as the world's leading copper producer, accounting for approximately 24% of global copper production in 2023. In 2022, Chile's copper ore exports amounted to $22.8 billion, with China being the largest importer, receiving $15.6 billion worth of copper ore. This dominance in copper production and exportation ensures Chile's economic stability and reinforces its pivotal role in global commodity markets.",
+			image: "https://investingnews.com/media-library/many-copper-bobbins-and-warehouse-copper-pipes.jpg?id=33568365&width=1200&height=800&quality=80&coordinates=0%2C0%2C1%2C0",
+			source: "https://www.statista.com/statistics/264246/value-of-copper-exports-from-chile/"
+		},
+		{
+			question: "Which Central American country is often called an 'ecological leader'?",
+			options: ["Panama", "Costa Rica", "Nicaragua", "Honduras"],
+			correctOption: 1,
+			explanation: "Costa Rica asserts global influence as an ecological leader through its commitment to sustainability and renewable energy. The country generates nearly all of its electricity from renewable sources, with 98% of its electrical energy derived from renewables. Costa Rica has also reversed deforestation, increasing forest cover from 24.4% in 1985 to over 50% by 2011, and has designated around 25% of its land as protected areas. These efforts have made Costa Rica a model for green development.",
+			image: "https://www.vie-publique.fr/files/styles/twitter_image/public/eclairage/environnement-usa.jpg?itok=p3WJTR8J",
+			source: "https://trade.gov/costa-rica-sustainability"
+		},
+		{
+			question: "Which North American country hosted the G7 summit in 2018?",
+			options: ["United States", "Mexico", "Canada", "Brazil"],
+			correctOption: 2,
+			explanation: "Canada projects its diplomatic influence globally by hosting significant events such as the 2018 G7 Summit in Charlevoix, Quebec. This summit provided a platform for Canada to engage with major world powers on pressing global issues, including trade, climate change, and security. The Charlevoix G7 Summit Communiqué reflects Canada's commitment to multilateral diplomacy and its role as a respected voice in international governance.",
+			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3RESxh6-x8AoC619fns_4xLVC5Pc3cCHy_A&s",
+			source: "https://www.canada.ca/en/privy-council/corporate/charlevoix-communique-g7-2018.html"
+		},
+		{
+			question: "Which Latin American country is the largest exporter of wine?",
+			options: ["Chile", "Brazil", "Argentina", "Uruguay"],
+			correctOption: 2,
+			explanation: "Argentina exerts significant cultural and economic influence globally as Latin America's leading wine exporter. In 2021, the country achieved a historic high in bottled wine exports, reaching US$817 million. Renowned for high-quality wines, particularly Malbec, Argentina's primary export markets include the United States, United Kingdom, and Brazil. This success bolsters Argentina's economy and enhances its cultural prominence, solidifying its status in the global wine industry.",
+			image: "https://winewankers.com/wp-content/uploads/2014/03/a-wine-one-glass.jpg?w=723&h=723",
+			source: "https://www.batimes.com.ar/news/argentina/argentina-reaches-historic-high-in-wine-exports.phtml"
+		}
+	];
 
-    function checkAnswer(button, index) {
-        const questionData = questions[currentQuestion];
-        const explanation = document.getElementById("explanation");
 
-        if (index === questionData.correctOption) {
-            button.classList.add("correct", "animate");
-        } else {
-            button.classList.add("incorrect", "animate");
-        }
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
 
-        explanation.textContent = questionData.explanation;
-        explanation.style.display = "block";
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
 
-        // Désactiver tous les boutons après une réponse
-        document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
-    }
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
 
-    function nextQuestion() {
-        currentQuestion++;
-        if (currentQuestion >= questions.length) {
-            alert("Quiz terminé !");
-            return;
-        }
 
-        loadQuestion();
-    }
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
 
-    function loadQuestion() {
-        const questionData = questions[currentQuestion];
-        document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
-        document.getElementById("question-text").textContent = questionData.question;
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+	}
 
-        const buttons = document.querySelectorAll('.options-container button');
-        buttons.forEach((btn, index) => {
-            btn.textContent = questionData.options[index];
-            btn.className = "default";
-            btn.disabled = false;
-        });
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
 
-        const explanation = document.getElementById("explanation");
-        explanation.style.display = "none";
-        explanation.textContent = questionData.explanation;
-    }
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
 
-    loadQuestion();
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: "Wow... Did you even try? This is embarrassing. Go back to kindergarten and start over. 🍼🤡",
+				animation: "shake",
+				emoji: "💩"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: "Decent effort, but let's be real: you're no genius. Enzo, Lucas, Thibault, and Ewen are laughing at you right now. 😏",
+				animation: "bounce",
+				emoji: "🤔"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: "Okay, fine. You did well. But let's face it—there's no way you didn't cheat. Don't kid yourself. 🕵️‍♀️🎯",
+				animation: "zoom",
+				emoji: "🔥"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
 </script>
 </body>
 </html>

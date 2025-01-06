@@ -1,20 +1,484 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Europe</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+            font-weight: bold;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            padding: 0 15px;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        @keyframes correct-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .correct.animate {
+            animation: correct-animation 0.5s ease forwards;
+        }
+
+        .incorrect.animate {
+            animation: incorrect-animation 0.5s ease forwards;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #ddd;
+        }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
+
+		#explanation a:hover {
+			text-decoration: underline;
+		}
+
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+		
+		@keyframes shake {
+			0%, 100% {
+				transform: translateX(0);
+			}
+			25% {
+				transform: translateX(-10px);
+			}
+			50% {
+				transform: translateX(10px);
+			}
+			75% {
+				transform: translateX(-5px);
+			}
+		}
+
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% {
+				transform: translateY(0);
+			}
+			40% {
+				transform: translateY(-20px);
+			}
+			60% {
+				transform: translateY(-10px);
+			}
+		}
+
+		@keyframes zoom {
+			0% {
+				transform: scale(0.8);
+				opacity: 0;
+			}
+			50% {
+				transform: scale(1.2);
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.result-message.shake {
+			animation: shake 1s ease-in-out;
+		}
+
+		.result-message.bounce {
+			animation: bounce 1.5s ease-in-out;
+		}
+
+		.result-message.zoom {
+			animation: zoom 1.5s ease-out;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+<div class="quiz-container" id="quiz-container">
+    <header>
+        <h1>Quiz: Europe</h1>
+        <p>Test your knowledge about Europe and its geopolitical powers!</p>
+    </header>
+    <div class="quiz-header">
+        <span id="question-counter">Question 1 / 12</span>
+    </div>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://via.placeholder.com/600x300" alt="Question Image">
+        <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button onclick="checkAnswer(this, 1)">Japan</button>
+            <button onclick="checkAnswer(this, 2)">India</button>
+            <button onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+    </div>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+</div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+
+
+<script>
+    let currentQuestion = 0;
+	let score = 0;
+
+	const questions = [
+		{
+			question: "Which European country is home to the headquarters of the European Union and NATO, strengthening its role in global diplomacy?",
+			options: ["France", "Belgium", "Germany", "Netherlands"],
+			correctOption: 1,
+			explanation: "Belgium is uniquely positioned as a hub of global diplomacy due to its hosting of the European Union (EU) and NATO headquarters. The EU, representing 27 countries, accounts for nearly 18% of global GDP (€14 trillion in 2023) and sets international standards in trade, human rights, and climate policy. NATO, with its 31 member nations, represents over 70% of global defense expenditure (€1.2 trillion annually). The EU Parliament in Brussels deliberates policies that influence 447 million citizens, while NATO's command center in Brussels coordinates rapid responses to global crises.",
+			image: "https://i.ytimg.com/vi/ac67k-Cm2LQ/maxresdefault.jpg",
+			source: "https://www.nato.int/cps/en/natolive/topics_82773.htm"
+		},
+		{
+			question: "Which European country has the highest number of global multinational companies headquartered within its borders?",
+			options: ["Switzerland", "France", "Germany", "United Kingdom"],
+			correctOption: 2,
+			explanation: "Germany is a powerhouse in the global economy, home to 28 Fortune Global 500 companies, including Volkswagen, Allianz, and Siemens. In 2023, Germany’s exports exceeded €1.6 trillion, making it the third-largest exporting country worldwide, with key industries including automotive (€230 billion annually) and machinery (€180 billion). Its Mittelstand companies, comprising over 99% of businesses, form the backbone of its economy, innovating in precision engineering and advanced manufacturing. Germany also leads the EU's economic policy-making.",
+			image: "https://www.cartograf.fr/continent/img/carte-europe-ville.jpg",
+			source: "https://www.forbes.com/global2000"
+		},
+		{
+			question: "Which European country leads in the development and export of 5G infrastructure technology?",
+			options: ["Finland", "Germany", "France", "Sweden"],
+			correctOption: 3,
+			explanation: "Sweden, through Ericsson, dominates the 5G infrastructure market with a 27% global market share. Ericsson has deployed 5G networks in over 100 countries, including major economies like the US, Japan, and India. Sweden invests 3.4% of its GDP in R&D, ranking among the top 10 globally. This innovation ecosystem, supported by government policies like 'Digital Sweden,' fosters startups and research institutions, ensuring the country remains a global leader in connectivity.",
+			image: "https://i.f1g.fr/media/eidos/805x453_crop/2022/01/26/XVM60364346-7ec3-11ec-83b8-f854dee230fd.jpg",
+			source: "https://www.ericsson.com/en/5g"
+		},
+		{
+			question: "Which European country leads NATO’s Very High Readiness Joint Task Force (VJTF) for rapid military response?",
+			options: ["Turkey", "United Kingdom", "Germany", "Poland"],
+			correctOption: 2,
+			explanation: "Germany’s leadership in NATO’s VJTF underscores its pivotal role in European defense. The VJTF, comprising up to 40,000 troops, is NATO’s spearhead force, capable of deployment within 48 hours. Germany contributes heavily to NATO’s Enhanced Forward Presence in Eastern Europe, with over 12,000 troops stationed in Lithuania, Poland, and other allied nations. Germany’s defense spending reached €59 billion in 2023, marking a 50% increase since 2020.",
+			image: "https://www.cartograf.fr/continent/img/carte-europe-ville.jpg",
+			source: "https://www.nato.int/cps/en/natolive/topics_82777.htm"
+		},
+		{
+			question: "Which European country is the largest exporter of cultural content, including cinema, literature, and media?",
+			options: ["Spain", "France", "United Kingdom", "Italy"],
+			correctOption: 2,
+			explanation: "The UK leverages its cultural assets, such as the BBC, British Council, and iconic literary figures, to enhance its soft power. British films, like the Harry Potter series, have grossed over $9 billion globally, while UK music exports reached £3.1 billion in 2023, driven by artists like Adele and Ed Sheeran. The BBC World Service broadcasts to 180 million weekly listeners in 42 languages, shaping narratives worldwide.",
+			image: "https://intrld.com/wp-content/uploads/2023/04/Sans-titre-42.png",
+			source: "https://www.bbc.com/news/entertainment-arts"
+		},
+		{
+			question: "Which European country is the global leader in offshore wind energy production?",
+			options: ["Denmark", "Norway", "Netherlands", "United Kingdom"],
+			correctOption: 3,
+			explanation: "The UK generates over 45% of its electricity from renewables, with offshore wind contributing 27 GW annually. Projects like Dogger Bank, the world’s largest offshore wind farm, will supply electricity to over 6 million homes upon completion. The UK’s leadership in this sector attracts global investments, totaling £16 billion in 2023 alone.",
+			image: "https://media.lesechos.com/api/v1/images/view/6496b18b4fee1345a40144ca/1280x720/090589096047-web-tete.jpg",
+			source: "https://www.gov.uk/government/news/uk-offshore-wind-energy-sector-sets-records"
+		},
+		{
+			question: "Which European country hosts NATO's Cooperative Cyber Defence Centre of Excellence?",
+			options: ["Estonia", "Poland", "Germany", "Finland"],
+			correctOption: 0,
+			explanation: "Estonia’s transformation into a digital society has made it a global leader in cybersecurity. Following the 2007 cyberattacks, Estonia developed advanced cyber resilience systems, including blockchain-secured e-governance platforms used by 98% of its population. As host of NATO’s Cyber Defence Centre, Estonia influences global cybersecurity standards.",
+			image: "https://s3.fr-par.scw.cloud/media.trouvetonmeme.com/media/memes/hide_the_pain_harold.jpg",
+			source: "https://ccdcoe.org/what-we-do/"
+		},
+		{
+			question: "Which European country is home to the European Space Agency’s headquarters and actively participates in global space exploration?",
+			options: ["Germany", "France", "Italy", "Spain"],
+			correctOption: 1,
+			explanation: "France’s leadership in space technology is exemplified by the Ariane program, which dominates the global commercial launch market with over 250 successful missions. France’s CNES (National Centre for Space Studies) collaborates with NASA and ESA on groundbreaking projects like the James Webb Space Telescope. France’s spaceport in Kourou, French Guiana, enables highly efficient satellite launches.",
+			image: "https://static.actu.fr/uploads/2021/04/thomas-pesquet-wikipedia-commons-1-960x640.jpg",
+			source: "https://www.cnes.fr/en"
+		},
+		{
+			question: "Which European country is the largest financial hub on the continent, hosting global banks and financial institutions?",
+			options: ["Netherlands", "Switzerland", "France", "United Kingdom"],
+			correctOption: 3,
+			explanation: "London’s financial ecosystem includes over 250 foreign banks and manages assets exceeding $12 trillion (2023). The London Stock Exchange, home to over 2,000 listed companies, facilitates global capital flows. London’s financial sector is a cornerstone of international finance.",
+			image: "https://upload.wikimedia.org/wikipedia/commons/b/bf/La_D%C3%A9fense_depuis_l%27Arc_de_Triomphe_Janvier_2023_%28cropped%29.jpg",
+			source: "https://www.londonandpartners.com/why-london/key-sectors/financial-services"
+		},
+		{
+			question: "Which European country is known for using its global language to enhance cultural and diplomatic ties worldwide?",
+			options: ["Germany", "Italy", "Spain", "France"],
+			correctOption: 3,
+			explanation: "French, spoken by over 321 million people, is an official language in major organizations like the UN and EU. Institutions such as Alliance Française and the Organisation Internationale de la Francophonie promote its global reach. TV5Monde broadcasts to 200+ countries, strengthening France’s cultural and diplomatic influence.",
+			image: "https://media.lesechos.com/api/v1/images/view/64873eea498da54471625e84/1280x720/090460052487-web-tete.jpg",
+			source: "https://www.francophonie.org/"
+		}
+	];
+
+
+
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
+
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
+
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
+
+
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
+
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+	}
+
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
+
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
+
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: `Damn, you're a total disaster! Honestly, you belong in a Nasdas story. You're officially a meme. 💀`,
+				animation: "shake",
+				emoji: "🤡"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: `Not bad, but let's be real... You'd make a great guest on a show called "Why I suck at English." Keep dreaming, future reality star! 😏`,
+				animation: "bounce",
+				emoji: "🎤"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: `Alright, you nailed it! But come on, admit it—you probably had a cousin or ChatGPT helping you out. Future influencer vibes. 🕵️‍♂️`,
+				animation: "zoom",
+				emoji: "🔥"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
+	loadQuestion();
+
+</script>
 </body>
 </html>

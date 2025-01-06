@@ -1,20 +1,509 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Amérique</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Quiz: Africa</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            width: 95%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            background-color: #4a3aff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-header {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #4a3aff;
+            font-weight: bold;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            padding: 0 15px;
+        }
+
+        .question-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .options-container button {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .options-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important;
+        }
+
+        @keyframes correct-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .correct.animate {
+            animation: correct-animation 0.5s ease forwards;
+        }
+
+        .incorrect.animate {
+            animation: incorrect-animation 0.5s ease forwards;
+        }
+
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #ddd;
+        }
+		
+		#explanation a {
+			color: #007bff;
+			text-decoration: none;
+			font-weight: bold;
+			margin-top: 10px;
+			display: inline-block;
+		}
+
+		#explanation a:hover {
+			text-decoration: underline;
+		}
+
+
+        .question-container img {
+			width: 100%;
+			max-width: 600px;
+			border-radius: 10px;
+			margin: 20px 0;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		#next-button {
+			margin-top: 20px;
+			padding: 12px 30px;
+			font-size: 1.2rem;
+			background-color: #ff5722;
+			color: white;
+			border: none;
+			border-radius: 30px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+			box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+		}
+
+		#next-button:hover {
+			background-color: #e64a19;
+			transform: translateY(-3px);
+		}
+
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+		
+		@keyframes shake {
+			0%, 100% {
+				transform: translateX(0);
+			}
+			25% {
+				transform: translateX(-10px);
+			}
+			50% {
+				transform: translateX(10px);
+			}
+			75% {
+				transform: translateX(-5px);
+			}
+		}
+
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% {
+				transform: translateY(0);
+			}
+			40% {
+				transform: translateY(-20px);
+			}
+			60% {
+				transform: translateY(-10px);
+			}
+		}
+
+		@keyframes zoom {
+			0% {
+				transform: scale(0.8);
+				opacity: 0;
+			}
+			50% {
+				transform: scale(1.2);
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.result-message.shake {
+			animation: shake 1s ease-in-out;
+		}
+
+		.result-message.bounce {
+			animation: bounce 1.5s ease-in-out;
+		}
+
+		.result-message.zoom {
+			animation: zoom 1.5s ease-out;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>Quiz : Amérique</h1>
-    <p>Testez vos connaissances sur les forces en Amérique.</p>
-</header>
+<div class="quiz-container" id="quiz-container">
+    <header>
+        <h1>Quiz: Africa</h1>
+        <p>Test your knowledge about Africa and its geopolitical powers!</p>
+    </header>
+    <div class="quiz-header">
+        <span id="question-counter">Question 1 / 12</span>
+    </div>
+    <div class="question-container" id="question-container">
+        <img id="question-image" src="https://via.placeholder.com/600x300" alt="Question Image">
+        <h2 id="question-text">Which Asian country has one of the most powerful armies and has possessed nuclear weapons since 1998?</h2>
+        <div class="options-container" id="options-container">
+            <button onclick="checkAnswer(this, 0)">Pakistan</button>
+            <button onclick="checkAnswer(this, 1)">Japan</button>
+            <button onclick="checkAnswer(this, 2)">India</button>
+            <button onclick="checkAnswer(this, 3)">South Korea</button>
+        </div>
+    </div>
+    <div id="explanation" style="display: none;" class="explanation"></div>
+    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+</div>
 
-<main>
-    <p>Contenu du quiz ici...</p>
-    <a href="../index.html" class="back-link">Retour à l'accueil</a>
-</main>
+
+
+<script>
+    let currentQuestion = 0;
+	let score = 0;
+
+	const questions = [
+		{
+			question: "Which African country is the most populous and has the largest economy on the continent in 2023?",
+			options: ["Egypt", "South Africa", "Nigeria", "Ethiopia"],
+			correctOption: 2,
+			explanation: "Nigeria is the most populous country in Africa, with a population exceeding 220 million in 2023. It also boasts the largest economy on the continent, with a GDP of over $500 billion, driven by its oil exports, which account for about 90% of its foreign exchange earnings. Additionally, Nigeria's emerging tech sector, often referred to as 'Silicon Lagoon,' is rapidly expanding, making it a hub for innovation in Africa.",
+			image: "https://s3.eu-west-1.amazonaws.com/meme-dev/76633aef-83d3-422d-9d66-06a31c3adec8.jpg",
+			source: "https://data.worldbank.org/country/nigeria"
+		},
+		{
+			question: "Which North African country is recognized for its key role in the Maghreb region?",
+			options: ["Algeria", "Morocco", "Tunisia", "Libya"],
+			correctOption: 0,
+			explanation: "Algeria plays a pivotal role in the Maghreb region due to its vast natural resources, particularly as one of the largest exporters of natural gas in the world. Covering over 2.38 million square kilometers, it is the largest country in Africa by land area. Algeria's energy wealth and strategic position enhance its influence in North African geopolitics.",
+			image: "https://media.tenor.com/FOlb9fVcz-gAAAAe/algerie-dz.png",
+			source: "https://www.britannica.com/place/Algeria"
+		},
+		{
+			question: "Which foreign power is heavily invested in infrastructure projects in Africa?",
+			options: ["France", "United States", "Russia", "China"],
+			correctOption: 3,
+			explanation: "China is the largest investor in African infrastructure, funding major projects such as roads, railways, ports, and energy facilities through its Belt and Road Initiative. By 2023, Chinese investment in Africa exceeded $150 billion, strengthening China’s economic ties with African nations and expanding its influence on the continent.",
+			image: "https://la1ere.francetvinfo.fr/image/XwSgadDCrSeYS2JR1td0GS3fvdU/930x620/outremer/2024/08/26/000-36ev7xp-66cc900e00b3c618843998.jpg",
+			source: "https://www.worldbank.org/en/topic/infrastructure"
+		},
+		{
+			question: "Which African country is considered a major player in oil production in sub-Saharan Africa?",
+			options: ["Angola", "Nigeria", "Gabon", "Congo"],
+			correctOption: 0,
+			explanation: "Angola is one of the largest oil producers in sub-Saharan Africa, with an output of over 1.1 million barrels per day. Its economy heavily depends on oil, which accounts for more than 90% of its export revenue. Angola’s oil production is concentrated offshore, with significant investments from international companies.",
+			image: "https://hcmagazines.com/wp-content/uploads/2024/03/Producteurs-de-petrole-en-Afrique.jpeg",
+			source: "https://www.opec.org/opec_web/en/about_us/25.htm"
+		},
+		{
+			question: "Which African country is the leader in technological development?",
+			options: ["South Africa", "Kenya", "Nigeria", "Rwanda"],
+			correctOption: 1,
+			explanation: "Kenya has established itself as a leader in technological innovation in Africa, earning the nickname 'Silicon Savannah.' The country is a pioneer in mobile banking with platforms like M-Pesa and is home to a growing tech ecosystem, including innovation hubs like iHub.",
+			image: "https://www.un.org/africarenewal/sites/www.un.org.africarenewal/files/27_1_youth_ict.jpg",
+			source: "https://www.statista.com/statistics/865684/kenya-tech-hub-growth/"
+		},
+		{
+			question: "Which African country has the largest number of troops engaged in United Nations peacekeeping missions?",
+			options: ["Ethiopia", "Ghana", "Rwanda", "Egypt"],
+			correctOption: 0,
+			explanation: "Ethiopia is one of the largest contributors to United Nations peacekeeping missions, deploying over 6,000 personnel in 2023. Ethiopian troops play a crucial role in stabilizing conflict zones such as South Sudan and Sudan.",
+			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqDhzlOHQCuNt-wzsGAXyo4hYTQHf6D_B10A&s",
+			source: "https://www.un.org/en/peacekeeping"
+		},
+		{
+			question: "Which African country has the largest number of French speakers?",
+			options: ["Senegal", "Cameroon", "Côte d'Ivoire", "Democratic Republic of Congo"],
+			correctOption: 3,
+			explanation: "The Democratic Republic of Congo has the largest French-speaking population in the world, with over 50 million people using French as an official or secondary language. This makes it a significant player in the global Francophone community.",
+			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw4zrZL0G4PiHHOmXIWtRkUaf1sQS9eFJ7hw&s",
+			source: "https://www.francophonie.org"
+		},
+		{
+			question: "Which African country is a member of the G20?",
+			options: ["Nigeria", "South Africa", "Egypt", "Kenya"],
+			correctOption: 1,
+			explanation: "South Africa is the only African member of the G20, representing the continent in this influential group of the world’s largest economies. With a GDP of over $400 billion in 2023, South Africa plays a pivotal role in shaping global economic policies.",
+			image: "https://upload.wikimedia.org/wikipedia/commons/c/c9/P20241119AS-1224_%2854152247504%29.jpg",
+			source: "https://www.imf.org/en/Countries/ZAF"
+		},
+		{
+			question: "Which African country is one of the world’s largest cocoa producers?",
+			options: ["Ghana", "Côte d'Ivoire", "Cameroon", "Nigeria"],
+			correctOption: 1,
+			explanation: "Côte d'Ivoire is the world’s largest producer of cocoa, accounting for over 40% of global production. Cocoa is a cornerstone of the Ivorian economy, providing livelihoods for millions of farmers and contributing significantly to export revenues.",
+			image: "https://image-blog.comptoir.fr/bresil/2017/11/dghchocolatier.jpg",
+			source: "https://www.fao.org/cocoa/en/"
+		},
+		{
+			question: "Which country is the cultural leader of Francophone Africa?",
+			options: ["Mali", "Cameroon", "Senegal", "Côte d'Ivoire"],
+			correctOption: 2,
+			explanation: "Senegal is widely regarded as the cultural leader of Francophone Africa, known for its vibrant music, art, and literature. The country is home to the famous Dakar Biennale, a major contemporary art event, and has produced internationally renowned musicians.",
+			image: "https://c.files.bbci.co.uk/1E88/production/_123161870_mediaitem123161869.jpg",
+			source: "https://www.bbc.com/news/world-africa-44214330"
+		},
+		{
+			question: "Which country dominates Africa's mining sector?",
+			options: ["DRC", "Zambia", "South Africa", "Angola"],
+			correctOption: 2,
+			explanation: "South Africa leads Africa's mining sector, being a top producer of gold, platinum, and diamonds. It accounts for 75% of the world’s platinum supply and plays a significant role in global mining.",
+			image: "https://www.afrik.com/wp-content/uploads/2020/07/une-mine-dor-696x422-1-696x392.jpg",
+			source: "https://www.statista.com/statistics/264271/production-of-platinum-in-south-africa/"
+		},
+		{
+			question: "Which country is the leader in tourism in Africa?",
+			options: ["Tanzania", "Kenya", "Egypt", "Morocco"],
+			correctOption: 3,
+			explanation: "Morocco is Africa’s top tourist destination, attracting over 12 million visitors annually. Its rich cultural heritage, historic cities like Marrakech and Fes, and natural attractions such as the Sahara Desert and Atlas Mountains make it a favorite among global travelers.",
+			image: "https://wallpaper.forfun.com/fetch/a1/a1f9ace6fbe8e3aa5981887455955096.jpeg",
+			source: "https://www.unwto.org/global-tourism-performance"
+		},
+		{
+			question: "Which country is the agricultural leader of Africa?",
+			options: ["South Africa", "Ethiopia", "Kenya", "Côte d'Ivoire"],
+			correctOption: 0,
+			explanation: "South Africa is the leading agricultural country in Africa, with advanced farming practices and high productivity in crops like maize, wheat, and citrus fruits. It is also the continent's largest wine producer, with exports reaching over $1 billion in 2023.",
+			image: "https://www.scidev.net/afrique-sub-saharienne/wp-content/uploads/sites/2/2019/08/african_farmer.png",
+			source: "https://www.fao.org/south-africa"
+		}
+	];
+
+
+
+
+	function checkAnswer(button, index) {
+		const questionData = questions[currentQuestion];
+		if (index === questionData.correctOption) {
+			score++;
+			button.classList.add("correct");
+		} else {
+			button.classList.add("incorrect");
+		}
+
+		const explanationElement = document.getElementById("explanation");
+		explanationElement.innerHTML = `
+			${questionData.explanation}
+			<br><a href="${questionData.source}" target="_blank" style="color: #007bff; text-decoration: none;">Want more details?</a>
+		`;
+		explanationElement.style.display = "block";
+
+		document.querySelectorAll(".options-container button").forEach(btn => btn.disabled = true);
+	}
+
+
+	function nextQuestion() {
+		currentQuestion++;
+		if (currentQuestion >= questions.length) {
+			showResult();
+			return;
+		}
+		loadQuestion();
+	}
+
+	function loadQuestion() {
+		const questionData = questions[currentQuestion];
+		document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+		document.getElementById("question-text").textContent = questionData.question;
+		const optionsContainer = document.getElementById("options-container");
+		optionsContainer.innerHTML = "";
+		questionData.options.forEach((option, index) => {
+			const button = document.createElement("button");
+			button.textContent = option;
+			button.onclick = () => checkAnswer(button, index);
+			optionsContainer.appendChild(button);
+		});
+		document.getElementById("explanation").style.display = "none";
+		document.getElementById("question-image").src = questionData.image;
+	}
+
+	function showResult() {
+		const quizContainer = document.getElementById("quiz-container");
+		const finalScoreMessage = getResultMessage();
+
+		quizContainer.innerHTML = `
+			<div class="result-container">
+				<h2>Your Score: ${score} / ${questions.length}</h2>
+				${finalScoreMessage}
+				<div class="result-icons">
+					${score === questions.length 
+						? "<img src='https://www.francebleu.fr/s3/cruiser-production/2022/10/ef853381-bd97-4d2a-aded-4a9e0d5ed91b/1200x680_000_32ll8hm.jpg' alt='Trophy' class='icon' />" 
+						: "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Encouragement' class='icon' />"}
+				</div>
+				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+			</div>
+		`;
+	}
+
+	function getResultMessage() {
+		const messages = [
+			{
+				condition: score < questions.length / 2,
+				message: "Wow... With that performance, you might want to reconsider engineering. McDonald's is always hiring, though! 🍔 Maybe you'll design the next Big Mac wrapper. 🙃",
+				animation: "shake",
+				emoji: "🍟"
+			},
+			{
+				condition: score < questions.length - 1,
+				message: "Not bad, but don't get too comfortable. At this rate, you'll be debugging coffee machines instead of coding robots. ☕️ Keep trying, future barista! 😏",
+				animation: "bounce",
+				emoji: "🤔"
+			},
+			{
+				condition: score >= questions.length - 1,
+				message: "Alright, genius. Either you're destined for greatness, or you're really good at cheating. 🤖 Let's hope your future boss doesn't rely on *this* performance. 🚩",
+				animation: "zoom",
+				emoji: "💼"
+			}
+		];
+
+		const result = messages.find((item) => item.condition);
+		return `
+			<div class="result-message ${result.animation}">
+				<p>${result.message} ${result.emoji}</p>
+			</div>
+		`;
+	}
+
+
+	loadQuestion();
+
+</script>
 </body>
 </html>
