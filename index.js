@@ -79,7 +79,7 @@ let fastClickCount = 0;
 document.querySelectorAll(".quiz-card").forEach((card) => {
     card.addEventListener("click", () => {
         fastClickCount++;
-        if (fastClickCount === 10) {
+        if (fastClickCount === 3) {
             alert("Oh vise bien le bouton si tu veux pas que je t'arrache ta grand mère!!");
         }
     });
@@ -170,7 +170,7 @@ let chaosClicks = 0;
 // Écoute les clics
 document.body.addEventListener("click", () => {
     chaosClicks++;
-    if (chaosClicks === 20) {
+    if (chaosClicks === 10) {
         activateChaosMode();
     }
 });
