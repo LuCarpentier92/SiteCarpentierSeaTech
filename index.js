@@ -196,6 +196,13 @@ function activateChaosMode() {
     }, 5000);
 }
 
+function displayMessage() {
+    alert("Oui oui mon reuf t'es bien à Seatech est ça pue du cul heuresement qu'il y a Dissard 😬");
+}
+
+function redirectToImage() {
+    window.open("sounds/LucasEnzo.png", "_blank");
+}
 
 
 

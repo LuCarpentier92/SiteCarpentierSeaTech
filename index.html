@@ -14,14 +14,26 @@
 
 <header class="header-container">
     <div class="header-content">
-        <img src="https://seatech.univ-tln.fr/squelettes/images/logos/seatech-208.png" alt="Seatech Logo" class="header-logo left-logo">
+        <!-- Image 1 : Affiche un message -->
+        <img src="https://seatech.univ-tln.fr/squelettes/images/logos/seatech-208.png" 
+             alt="Seatech Logo" 
+             class="header-logo left-logo" 
+             onclick="displayMessage()" />
+        
+        <!-- Texte du header -->
         <div class="header-text">
             <h1>Power Dynamics Quiz</h1>
             <p>Explore global power dynamics through engaging quizzes!</p>
         </div>
-        <img src="https://www.univ-tln.fr/squelettes/images/logos/logo-utln.png" alt="University Logo" class="header-logo right-logo">
+        
+        <!-- Image 2 : Redirige vers une photo -->
+        <img src="https://www.univ-tln.fr/squelettes/images/logos/logo-utln.png" 
+             alt="University Logo" 
+             class="header-logo right-logo" 
+             onclick="redirectToImage()" />
     </div>
 </header>
+
 
 <div class="text-container">
     <label for="text-input">Type something here:</label>
