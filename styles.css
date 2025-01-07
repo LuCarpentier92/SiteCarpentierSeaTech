@@ -250,76 +250,110 @@ footer {
 }
 
 
-/* Global adjustments for mobile screens */
+/* Général pour mobile */
 @media (max-width: 768px) {
+    /* Global */
     body {
-        padding: 0 10px; /* Add padding to prevent text from touching screen edges */
+        font-size: 1rem; /* Ajuste la taille de police pour les petits écrans */
+        padding: 10px; /* Ajoute du padding global pour éviter les bords collés */
     }
 
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-        padding: 0;
-        margin: 0;
-    }
-
-    .nav-links li {
-        display: block;
+    header {
+        flex-direction: column; /* Empile les éléments en colonne */
+        text-align: center;
+        padding: 20px 10px;
     }
 
     .header-content {
-        flex-direction: column; /* Stack the logo and text vertically */
+        flex-direction: column; /* Empile les logos et le texte */
         align-items: center;
-        text-align: center;
     }
 
     .header-logo {
-        max-width: 80px;
+        width: 120px; /* Réduit la taille des logos */
+        margin: 10px 0;
     }
 
+    .header-text h1 {
+        font-size: 1.8rem; /* Réduit la taille du titre */
+    }
+
+    .header-text p {
+        font-size: 1.2rem;
+    }
+
+    /* Description */
+    .description {
+        font-size: 1rem;
+        line-height: 1.6;
+        padding: 10px;
+    }
+
+    /* Conteneur des quiz */
     .quiz-container {
-        display: flex;
-        flex-direction: column; /* Stack cards vertically */
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
         gap: 20px;
     }
 
     .quiz-card {
-        width: 100%; /* Full width for cards on mobile */
+        height: auto; /* Laisse la hauteur s'ajuster automatiquement */
         padding: 15px;
-        background-size: cover; /* Ensure images scale properly */
-        font-size: 0.9rem;
-    }
-
-    .quiz-card button {
         font-size: 1rem;
-        padding: 10px 15px;
     }
 
+    .quiz-card h2 {
+        font-size: 1.4rem;
+    }
+
+    .quiz-card p {
+        font-size: 1rem;
+    }
+
+    .quiz-card a {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+
+    .icon {
+        font-size: 2rem; /* Réduit les icônes */
+    }
+
+    /* Carte interactive */
     #map {
-        height: 300px; /* Reduce map height for smaller screens */
+        height: 300px; /* Réduit la hauteur de la carte */
+        margin: 10px auto;
     }
 
+    /* Navbar */
+    .navbar {
+        flex-direction: column; /* Empile les éléments de la navbar */
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column; /* Liens empilés */
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+        padding: 10px 15px; /* Réduit l'espacement */
+    }
+
+    /* Footer */
     footer {
-        flex-direction: column; /* Stack footer elements */
         text-align: center;
+        font-size: 0.9rem; /* Réduit la taille de police */
+        padding: 10px;
     }
 
     .social-icons a {
-        margin: 5px; /* Add spacing between icons */
+        font-size: 1.2rem; /* Réduit les icônes */
+        margin: 5px;
     }
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 .hamburger {
     display: none;
