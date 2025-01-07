@@ -80,7 +80,7 @@ document.querySelectorAll(".quiz-card").forEach((card) => {
     card.addEventListener("click", () => {
         fastClickCount++;
         if (fastClickCount === 10) {
-            alert("Oh vise bien le bouton explore si tu veux que je t'arrache ta grand mère");
+            alert("Oh vise bien le bouton si tu veux pas que je t'arrache ta grand mère!!");
         }
     });
 });
