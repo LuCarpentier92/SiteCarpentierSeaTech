@@ -40,6 +40,176 @@ document.querySelector('.hamburger').addEventListener('click', () => {
 });
 
 
+document.addEventListener("keydown", (e) => {
+    if (e.shiftKey && e.key === "N") {
+        document.body.classList.toggle("dark-mode");
+        alert("You've activated Dark Mode! 🌓");
+    }
+});
+
+let clickCount = 0;
+document.querySelector(".btn-explore").addEventListener("click", () => {
+    clickCount++;
+    if (clickCount === 10) {
+        alert("You've unlocked a secret quiz! 🎉");
+        window.location.href = "secret-quiz.html"; // Redirige vers un quiz caché.
+    }
+});
+
+let footerTimeout;
+document.querySelector("footer").addEventListener("mouseover", () => {
+    footerTimeout = setTimeout(() => {
+        alert("You found the hidden footer surprise! 🥳");
+    }, 5000); // 5 secondes
+});
+document.querySelector("footer").addEventListener("mouseout", () => {
+    clearTimeout(footerTimeout);
+});
+
+
+let questionTimeout;
+document.querySelector(".quiz-container").addEventListener("mousemove", () => {
+    clearTimeout(questionTimeout);
+    questionTimeout = setTimeout(() => {
+        alert("What’s taking so long? Googling the answer? Cheater! 🕵️‍♂️");
+    }, 10000); // 10 secondes d'inactivité
+});
+
+let fastClickCount = 0;
+document.querySelectorAll(".quiz-card").forEach((card) => {
+    card.addEventListener("click", () => {
+        fastClickCount++;
+        if (fastClickCount === 10) {
+            alert("Oh vise bien le bouton explore si tu veux que je t'arrache ta grand mère");
+        }
+    });
+});
+
+document.querySelector("#text-input").addEventListener("input", (e) => {
+    const bannedWords = {
+        "toeic": "Oh, come on Snap, I sell TOEIC scores of 800 for 15 euros – add me at lucarpentier92! 🤑",
+        "english": "Typing 'English'? You sure you didn’t use Google Translate? 🤔",
+        "seatecn": "Typing 'SEATECH'? Ah, aiming for big dreams but still clueless, huh? 🌍",
+        "dissard": "Hmm, are you talking about GTD (Great Teacher Dissard)? She pulled off a feat by helping Enzo get his TOEIC – it works better than those TOEICs bought on Snap! 😏",
+		"carpentier": "Hmmm, yeah, this guy is a real player. 🍆",
+		"lucas": "Hmmm, yeah, this guy is a real player. 🍆",
+		"enzo": "Hmmm, I think this guy deserves to go back to Thailand. 🇹🇭",
+		"cherif": "Hmmm, I think this guy deserves to go back to Thailand. 🇹🇭",
+		"girafa": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
+		"courtois": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
+		"thibault": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
+		"ewen": "He's just a chill guy, never gets angry – the voice of wisdom. 🧘‍♂️",
+		"guivarch": "He's just a chill guy, never gets angry – the voice of wisdom. 🧘‍♂️",
+		"eliot": "Beep beep, motorbike – all I know is riding and annoying people. 🛵😏",
+		"grolu": "He's a son of a b***h. 😅",
+		"pb": "Here he goes wanting to fight, but he's trash. 🥊😂",
+		"roggia": "To me, he’s homosexual. 🌈",
+		"brocard": "He still has a lot of hair; you just don’t see it. 🕶️😅",
+		"even": "Keeping a secret is too much for him... snitch. 🤐🐀",
+		"georges": "Bloody Englishman, go back to your country. 😬",
+    
+	};
+
+    const inputText = e.target.value.toLowerCase();
+
+    // Parcours les mots clés pour vérifier les occurrences
+    Object.keys(bannedWords).forEach((word) => {
+        if (inputText.includes(word)) {
+            // Remplace le mot interdit par une phrase ridicule
+            e.target.value = inputText.replace(word, "💩 (Detected)");
+            alert(bannedWords[word]); // Affiche le message spécifique
+        }
+    });
+});
+
+// Vérifie le compteur d'actualisations dans localStorage
+let refreshCounter = localStorage.getItem("refreshCounter") || 0;
+refreshCounter++;
+localStorage.setItem("refreshCounter", refreshCounter);
+
+if (refreshCounter >= 5) {
+    // Affiche une fausse page de chargement troll
+    document.body.innerHTML = `
+        <h1 style="text-align: center; margin-top: 20%; font-size: 2rem; color: #333;">Loading your IQ... Please wait 🤔</h1>
+        <div style="width: 100%; display: flex; justify-content: center; margin-top: 20px;">
+            <div class="loader"></div>
+        </div>
+    `;
+    
+    // Ajoute une animation pour un effet de chargement
+    const style = document.createElement("style");
+    style.innerHTML = `
+        .loader {
+            border: 10px solid #f3f3f3; /* Light grey */
+            border-top: 10px solid #0044cc; /* Blue */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Recharge la page après 5 secondes
+    setTimeout(() => {
+        window.location.reload();
+    }, 5000);
+}
+
+// Réinitialise le compteur après une longue période d'inactivité
+setTimeout(() => {
+    localStorage.removeItem("refreshCounter");
+}, 600); // 10 minutes
+
+let chaosClicks = 0;
+
+// Écoute les clics
+document.body.addEventListener("click", () => {
+    chaosClicks++;
+    if (chaosClicks === 20) {
+        activateChaosMode();
+    }
+});
+
+// Écoute la saisie du mot "chaos"
+let inputSequence = "";
+document.body.addEventListener("keydown", (e) => {
+    inputSequence += e.key.toLowerCase();
+    if (inputSequence.includes("chaos")) {
+        activateChaosMode();
+        inputSequence = ""; // Réinitialise après l'activation
+    }
+});
+
+// Fonction pour activer le mode chaotique
+function activateChaosMode() {
+    document.body.classList.add("chaos-mode");
+    alert("Welcome to CHAOS MODE! 🌈🎉"); // Message humoristique
+
+    // Désactive le mode après 5 secondes
+    setTimeout(() => {
+        document.body.classList.remove("chaos-mode");
+    }, 5000);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

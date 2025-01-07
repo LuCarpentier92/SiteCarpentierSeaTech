@@ -61,69 +61,89 @@ body {
 
 
 
+/* Description Section */
 .description {
     max-width: 800px; /* Limite la largeur pour une meilleure lisibilité */
-    margin: 30px auto; /* Centre horizontalement */
+    margin: 40px auto; /* Centre la description */
     padding: 20px;
-    font-size: 1.4rem; /* Texte légèrement plus grand */
-    line-height: 1.8; /* Espacement entre les lignes */
-    color: #555;
+    background: linear-gradient(135deg, #f1f4f8, #e8ecf3); /* Fond clair avec un dégradé subtil */
+    border-radius: 15px; /* Coins arrondis pour un style élégant */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Légère ombre pour donner du relief */
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #333; /* Couleur du texte lisible */
     text-align: center; /* Centre le texte */
 }
 
 .description p {
-    margin-bottom: 20px; /* Ajoute de l'espace entre les paragraphes */
+    margin-bottom: 20px; /* Espacement entre les paragraphes */
+}
+
+.description strong {
+    color: #0044cc; /* Mets en avant le texte important */
 }
 
 
+
+/* Quiz Container */
 .quiz-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Espace entre les cartes */
     margin: 40px auto;
-    max-width: 1400px;
     padding: 20px;
+    max-width: 1200px; /* Limite la largeur maximale */
 }
 
+/* Quiz Card */
 .quiz-card {
     position: relative;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     border-radius: 15px;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    color: #ffffff; /* Le texte devient blanc */
-    height: 300px; /* Hauteur fixe pour des cartes cohérentes */
+    justify-content: center; /* Centre le contenu verticalement */
+    align-items: center; /* Centre le contenu horizontalement */
+    padding: 20px;
+    color: #f8f9fa; /* Texte blanc cassé */
+    height: 250px; /* Hauteur uniforme */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent sombre pour contraster avec le texte */
+    background-color: rgba(0, 0, 0, 0.5); /* Couche sombre pour lisibilité */
+    text-align: center; /* Centre le texte à l'intérieur */
 }
 
 .quiz-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px); /* Animation de déplacement */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Ombre accentuée */
 }
 
 .quiz-card h2 {
-    font-size: 1.8rem;
-    margin: 15px 0 10px;
-    color: #ffcc00; /* Titre jaune vif pour contraste */
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+    color: #e0e0e0; /* Gris clair pour le titre */
 }
 
 .quiz-card p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #dddddd; /* Texte descriptif gris clair */
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #cccccc; /* Gris clair pour le texte */
 }
 
-.quiz-card a {
+/* Icône centrée au-dessus du texte */
+.icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #0044cc; /* Icône en bleu vif */
+}
+
+/* Bouton Explore */
+.btn-explore {
     display: inline-block;
-    background: #0044cc; /* Bouton bleu vif */
-    color: white; /* Texte du bouton en blanc */
+    background: #0044cc; /* Bouton bleu */
+    color: white; /* Texte en blanc */
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
@@ -131,31 +151,58 @@ body {
     transition: background 0.3s ease;
 }
 
-.quiz-card a:hover {
-    background: #002266; /* Couleur du bouton plus foncée au survol */
-}
-
-.icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    color: #ffcc00; /* Icônes en jaune vif pour se démarquer */
+.btn-explore:hover {
+    background: #002266; /* Bleu plus foncé au survol */
 }
 
 
 
 
-footer {
-    background-color: #0044cc;
+/* Footer Container */
+.footer-container {
+    background-color: #0044cc; /* Bleu vif pour correspondre au thème */
     color: white;
+    padding: 20px 10px;
     text-align: center;
-    padding: 15px 0;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* Ombre légère au-dessus */
+    margin-top: 40px;
+}
+
+.footer-content {
+    max-width: 1200px; /* Limite la largeur pour centrer */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espace entre le texte et les icônes */
+}
+
+.footer-text {
     font-size: 1rem;
-    position: relative;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     line-height: 1.6;
 }
+
+.footer-text p {
+    margin: 0;
+}
+
+/* Social Icons */
+.footer-social {
+    display: flex;
+    gap: 15px; /* Espace entre les icônes */
+    justify-content: center;
+}
+
+.social-link {
+    color: white; /* Couleur des icônes */
+    font-size: 1.5rem; /* Taille des icônes */
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: #cccccc; /* Gris clair au survol */
+}
+
 
 /* Navbar */
 
@@ -236,10 +283,31 @@ footer {
     display: block;
 }
 
-#map {
-    height: 500px;
-    width: 100%;
-    margin: 20px auto;
+/* Section autour de la carte */
+.map-section {
+    text-align: center; /* Centre le titre et la carte */
+    margin: 40px auto;
+}
+
+/* Titre de la carte */
+.map-title {
+    font-size: 2rem; /* Taille du titre */
+    color: #0044cc; /* Bleu pour correspondre au thème */
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Légère ombre pour relief */
+    margin-bottom: 20px; /* Espace entre le titre et la carte */
+}
+
+/* Conteneur de la carte */
+.map-container {
+    height: 500px; /* Hauteur par défaut */
+    width: 100%; /* Largeur pleine */
+    margin: 0 auto;
+    border-radius: 15px; /* Coins arrondis */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre pour effet de profondeur */
+    border: 2px solid #0044cc; /* Bordure fine pour démarquer la carte */
+    background-color: #f8f9fa; /* Couleur de fond par défaut */
+    overflow: hidden; /* Assure que la carte reste propre */
 }
 
 
@@ -273,11 +341,14 @@ footer {
         margin-top: 5px;
     }
 
-    /* Description */
     .description {
-        font-size: 1rem;
-        line-height: 1.6;
-        padding: 10px;
+        padding: 15px; /* Réduit l'espacement pour les petits écrans */
+        font-size: 1rem; /* Réduit légèrement la taille de la police */
+        line-height: 1.6; /* Réduit l'espacement entre les lignes */
+    }
+
+    .description p {
+        margin-bottom: 15px; /* Réduit l'espace entre les paragraphes */
     }
 
     /* Conteneur des quiz */
@@ -343,6 +414,50 @@ footer {
         font-size: 1.2rem; /* Réduit les icônes */
         margin: 5px;
     }
+	
+	.map-title {
+        font-size: 1.5rem; /* Taille réduite pour les écrans mobiles */
+        margin-bottom: 15px; /* Espace ajusté */
+    }
+
+    .map-container {
+        height: 300px; /* Hauteur réduite pour mobiles */
+        margin: 10px auto;
+    }
+	
+	.quiz-card {
+        height: 200px; /* Réduit la hauteur sur mobile */
+        padding: 15px;
+    }
+
+    .quiz-card h2 {
+        font-size: 1.2rem; /* Réduit la taille des titres */
+    }
+
+    .quiz-card p {
+        font-size: 0.9rem; /* Réduit la taille des descriptions */
+    }
+
+    .icon {
+        font-size: 2rem; /* Réduit la taille des icônes */
+    }
+
+    .btn-explore {
+        font-size: 0.9rem; /* Bouton plus petit */
+        padding: 8px 15px;
+    }
+	
+	.footer-container {
+        padding: 15px;
+    }
+
+    .footer-content {
+        gap: 10px; /* Réduit l'espace entre les éléments */
+    }
+
+    .social-link {
+        font-size: 1.2rem; /* Taille des icônes réduite */
+    }
 }
 
 
@@ -372,6 +487,77 @@ footer {
         display: block; /* Show hamburger on small screens */
     }
 }
+
+.dark-mode {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.dark-mode .quiz-card {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .btn-explore {
+    background-color: #333;
+    color: #fff;
+}
+
+.text-container {
+    margin: 20px auto;
+    text-align: center;
+}
+
+label {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+#text-input {
+    margin-top: 10px;
+    padding: 10px;
+    width: 300px;
+    font-size: 1rem;
+    border: 2px solid #0044cc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#text-input:focus {
+    border-color: #002266;
+}
+
+/* Animation des couleurs chaotiques */
+@keyframes chaos-colors {
+    0% { background-color: red; }
+    25% { background-color: green; }
+    50% { background-color: blue; }
+    75% { background-color: yellow; }
+    100% { background-color: purple; }
+}
+
+/* Animation des tailles de police */
+@keyframes font-chaos {
+    0%, 100% { font-size: 16px; }
+    25% { font-size: 24px; }
+    50% { font-size: 32px; }
+    75% { font-size: 40px; }
+}
+
+/* Mode Chaotique */
+.chaos-mode {
+    animation: chaos-colors 0.5s infinite;
+    color: white;
+    font-family: "Comic Sans MS", cursive; /* Police étrange */
+    text-transform: uppercase; /* Tout en majuscules */
+}
+
+.chaos-mode * {
+    animation: font-chaos 0.5s infinite; /* Police changeante */
+    transition: all 0.3s ease;
+}
+
+
 
 
 
