@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power Dynamics Quiz</title>
     <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+	<script src="index.js" defer></script>
 </head>
 <body>
 
 
 <header>
-
-
     <div class="header-content">
-        <img src="../images/seatech.png" alt="Seatech Logo" class="header-logo left-logo">
+        <img src="https://seatech.univ-tln.fr/squelettes/images/logos/seatech-208.png" alt="Seatech Logo" class="header-logo left-logo">
         <div class="header-text">
             <h1>Power Dynamics Quiz</h1>
         </div>
-        <img src="../images/univ.png" alt="University Logo" class="header-logo right-logo">
+        <img src="https://www.univ-tln.fr/squelettes/images/logos/logo-utln.png" alt="University Logo" class="header-logo right-logo">
     </div>
 </header>
 
@@ -31,7 +32,9 @@
     </p>
 </div>
 
+<div id="map" style="height: 500px; width: 100%; margin: 20px 0;"></div>
 
+<div class="hamburger">☰</div>
 
 <div class="quiz-container">
     <!-- Quiz 1 -->
@@ -91,6 +94,8 @@
         <a href="quizz/diplomatie.html">Explore</a>
     </div>
 </div>
+
+
 
 
 <footer>
