@@ -9,62 +9,55 @@ body {
 }
 
 
-header {
-    background: linear-gradient(90deg, #0044cc, #002266);
+/* Header Styles */
+.header-container {
+    background: linear-gradient(120deg, #0044cc, #002266); /* Dégradé moderne */
     color: white;
     padding: 30px 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre élégante */
 }
-
-header h1 {
-    font-size: 3rem; /* Titre plus grand */
-    margin: 0;
-}
-
-header p {
-    margin-top: 10px;
-    font-size: 1.4rem; /* Sous-titre plus grand */
-}
-
 
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 1200px; /* Limite la largeur pour centrer */
     width: 100%;
-    max-width: 1200px; /* Ajuste la largeur maximale du contenu */
 }
 
 .header-logo {
-    width: 250px; /* Augmenté à 150px */
-    height: auto; /* Conserve les proportions */
+    width: 120px; /* Taille modérée des logos */
+    height: auto;
+    transition: transform 0.3s ease; /* Animation au survol */
 }
 
-.left-logo {
-    margin-right: 40px; /* Ajuste l'espacement à droite du logo gauche */
+.header-logo:hover {
+    transform: scale(1.1); /* Légère mise en avant au survol */
 }
-
-.right-logo {
-    margin-left: 40px; /* Ajuste l'espacement à gauche du logo droit */
-}
-
 
 .header-text {
     text-align: center;
-    flex-grow: 1; /* Permet au texte de prendre tout l'espace restant */
-    margin: 0 20px;
+    flex-grow: 1; /* Permet au texte de s'étendre */
 }
 
 .header-text h1 {
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Taille élégante pour le titre */
     margin: 0;
+    font-weight: bold;
+    letter-spacing: 1px; /* Espacement subtil entre les lettres */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Effet de texte ombré */
 }
 
 .header-text p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin: 10px 0 0;
+    font-style: italic;
+    opacity: 0.8; /* Texte légèrement transparent */
 }
+
 
 
 
@@ -257,19 +250,17 @@ footer {
         font-size: 1rem; /* Ajuste la taille de police pour les petits écrans */
     }
 
-    header {
-        flex-direction: column; /* Empile les éléments en colonne */
-        text-align: center;
+    .header-container {
         padding: 20px 10px;
     }
 
     .header-content {
-        flex-direction: column; /* Empile les logos et le texte */
-        align-items: center;
+        flex-direction: column; /* Empile les éléments verticalement */
+        text-align: center;
     }
 
     .header-logo {
-        width: 120px; /* Réduit la taille des logos */
+        width: 100px; /* Réduit la taille des logos */
         margin: 10px 0;
     }
 
@@ -278,7 +269,8 @@ footer {
     }
 
     .header-text p {
-        font-size: 1.2rem;
+        font-size: 1rem; /* Texte plus petit */
+        margin-top: 5px;
     }
 
     /* Description */
