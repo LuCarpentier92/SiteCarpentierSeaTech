@@ -201,7 +201,7 @@ function displayMessage() {
 }
 
 function redirectToImage() {
-    window.open("sounds/LucasEnzo.png", "_blank");
+    window.open("images/LucasEnzo.png", "_blank");
 }
 
 
