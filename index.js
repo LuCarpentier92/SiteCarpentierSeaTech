@@ -95,11 +95,9 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
 		"lucas": "Hmmm, yeah, this guy is a real player. 🍆",
 		"enzo": "Hmmm, I think this guy deserves to go back to Thailand. 🇹🇭",
 		"cherif": "Hmmm, I think this guy deserves to go back to Thailand. 🇹🇭",
-		"girafa": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
 		"courtois": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
 		"thibault": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
 		"ewen": "He's just a chill guy, never gets angry – the voice of wisdom. 🧘‍♂️",
-		"guivarch": "He's just a chill guy, never gets angry – the voice of wisdom. 🧘‍♂️",
 		"eliot": "Beep beep, motorbike – all I know is riding and annoying people. 🛵😏",
 		"grolu": "He's a son of a b***h. 😅",
 		"pb": "Here he goes wanting to fight, but he's trash. 🥊😂",
@@ -107,20 +105,79 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
 		"brocard": "He still has a lot of hair; you just don’t see it. 🕶️😅",
 		"even": "Keeping a secret is too much for him... snitch. 🤐🐀",
 		"georges": "Bloody Englishman, go back to your country. 😬",
-    
-	};
+		"hugo": "Here's a special clip for Hugo. Enjoy!",
+        "girafa": "girafa, this one's for you. Check it out!",
+        "guivarch": "guivarch, this one's for you. Check it out!",
+        "cherif": "cherif, this one's for you. Check it out!",
+		"julia": "julia, this one's for you. Check it out!"
+    };
+
+    const videos = {
+        "hugo": "sounds/Hugo.mp4", // Example video
+        "girafa": "sounds/Girafa.mp4", // Example video
+        "guivarch": "sounds/guivarch.mp4", // Example video
+        "cherif": "sounds/cherif.mp4", // Example video
+        "julia": "sounds/LucasJulia.mp4" // Example video
+    };
 
     const inputText = e.target.value.toLowerCase();
 
     // Parcours les mots clés pour vérifier les occurrences
     Object.keys(bannedWords).forEach((word) => {
         if (inputText.includes(word)) {
-            // Remplace le mot interdit par une phrase ridicule
-            e.target.value = inputText.replace(word, "💩 (Detected)");
-            alert(bannedWords[word]); // Affiche le message spécifique
+            // Si le mot déclenche une vidéo
+            if (videos[word]) {
+                showVideoModal(videos[word]);
+            } else {
+                // Sinon, affiche une alerte
+                e.target.value = inputText.replace(word, "💩 (Detected)");
+                alert(bannedWords[word]);
+            }
         }
     });
 });
+
+// Fonction pour afficher une vidéo dans une modale
+function showVideoModal(videoUrl) {
+    const modal = document.createElement("div");
+    modal.style.position = "fixed";
+    modal.style.top = "0";
+    modal.style.left = "0";
+    modal.style.width = "100%";
+    modal.style.height = "100%";
+    modal.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+    modal.style.display = "flex";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
+    modal.style.zIndex = "1000";
+
+    const iframe = document.createElement("iframe");
+    iframe.src = videoUrl;
+    iframe.style.width = "80%";
+    iframe.style.height = "60%";
+    iframe.style.border = "none";
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.style.position = "absolute";
+    closeButton.style.top = "20px";
+    closeButton.style.right = "20px";
+    closeButton.style.padding = "10px 20px";
+    closeButton.style.fontSize = "1.2rem";
+    closeButton.style.backgroundColor = "#ff5722";
+    closeButton.style.color = "#fff";
+    closeButton.style.border = "none";
+    closeButton.style.borderRadius = "5px";
+    closeButton.style.cursor = "pointer";
+
+    closeButton.onclick = () => {
+        modal.remove();
+    };
+
+    modal.appendChild(iframe);
+    modal.appendChild(closeButton);
+    document.body.appendChild(modal);
+}
 
 // Vérifie le compteur d'actualisations dans localStorage
 let refreshCounter = localStorage.getItem("refreshCounter") || 0;
