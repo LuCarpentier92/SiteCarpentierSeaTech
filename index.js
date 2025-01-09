@@ -118,7 +118,7 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
         "girafa": "sounds/Girafa.mp4", // Example video
         "guivarch": "sounds/guivarch.mp4", // Example video
         "cherif": "sounds/cherif.mp4", // Example video
-        "lucas": "sounds/Lucas.mp4", // Example video
+        "lucas": "sounds/Lucas (2).mp4", // Example video
         "louis": "sounds/Louis.mp4", // Example video
         "julia": "sounds/LucasJulia.mp4" // Example video
     };
