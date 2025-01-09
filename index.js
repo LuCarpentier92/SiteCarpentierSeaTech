@@ -92,7 +92,6 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
         "seatecn": "Typing 'SEATECH'? Ah, aiming for big dreams but still clueless, huh? 🌍",
         "dissard": "Hmm, are you talking about GTD (Great Teacher Dissard)? She pulled off a feat by helping Enzo get his TOEIC – it works better than those TOEICs bought on Snap! 😏",
 		"carpentier": "Hmmm, yeah, this guy is a real player. 🍆",
-		"lucas": "Hmmm, yeah, this guy is a real player. 🍆",
 		"enzo": "Hmmm, I think this guy deserves to go back to Thailand. 🇹🇭",
 		"cherif": "Hmmm, I think this guy deserves to go back to Thailand. 🇹🇭",
 		"courtois": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
@@ -109,6 +108,8 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
         "girafa": "girafa, this one's for you. Check it out!",
         "guivarch": "guivarch, this one's for you. Check it out!",
         "cherif": "cherif, this one's for you. Check it out!",
+        "lucas": "lucas, this one's for you. Check it out!",
+        "louis": "louis, this one's for you. Check it out!",
 		"julia": "julia, this one's for you. Check it out!"
     };
 
@@ -117,6 +118,8 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
         "girafa": "sounds/Girafa.mp4", // Example video
         "guivarch": "sounds/guivarch.mp4", // Example video
         "cherif": "sounds/cherif.mp4", // Example video
+        "lucas": "sounds/Lucas.mp4", // Example video
+        "louis": "sounds/Louis.mp4", // Example video
         "julia": "sounds/LucasJulia.mp4" // Example video
     };
 
