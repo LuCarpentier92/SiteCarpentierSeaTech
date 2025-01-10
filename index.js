@@ -98,29 +98,50 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
 		"thibault": "Hmmm, luckily he got his internship in Bordeaux, or else he’d be out of a dishwasher. 🍽️",
 		"ewen": "He's just a chill guy, never gets angry – the voice of wisdom. 🧘‍♂️",
 		"eliot": "Beep beep, motorbike – all I know is riding and annoying people. 🛵😏",
-		"grolu": "He's a son of a b***h. 😅",
 		"pb": "Here he goes wanting to fight, but he's trash. 🥊😂",
 		"roggia": "To me, he’s homosexual. 🌈",
 		"brocard": "He still has a lot of hair; you just don’t see it. 🕶️😅",
 		"even": "Keeping a secret is too much for him... snitch. 🤐🐀",
-		"georges": "Bloody Englishman, go back to your country. 😬",
 		"hugo": "Here's a special clip for Hugo. Enjoy!",
         "girafa": "girafa, this one's for you. Check it out!",
         "guivarch": "guivarch, this one's for you. Check it out!",
         "cherif": "cherif, this one's for you. Check it out!",
         "lucas": "lucas, this one's for you. Check it out!",
         "louis": "louis, this one's for you. Check it out!",
+        "quentin": "quentin, this one's for you. Check it out!",
+        "jeremy": "jeremy, this one's for you. Check it out!",
+        "grolu": "grolu, this one's for you. Check it out!",
+        "moulian": "moulian, this one's for you. Check it out!",
+        "brancard": "brancard, this one's for you. Check it out!",
+        "julian": "julian, this one's for you. Check it out!",
+        "bastien": "bastien, this one's for you. Check it out!",
+        "mateo": "mateo, this one's for you. Check it out!",
+        "georges": "georges, this one's for you. Check it out!",
+        "loustau": "loustau, this one's for you. Check it out!",
+        "tulum": "georges, this one's for you. Check it out!",
 		"julia": "julia, this one's for you. Check it out!"
     };
 
     const videos = {
-        "hugo": "sounds/Hugo.mp4", // Example video
-        "girafa": "sounds/Girafa.mp4", // Example video
-        "guivarch": "sounds/guivarch.mp4", // Example video
-        "cherif": "sounds/cherif.mp4", // Example video
-        "lucas": "sounds/Lucas (2).mp4", // Example video
-        "louis": "sounds/Louis.mp4", // Example video
-        "julia": "sounds/LucasJulia.mp4" // Example video
+        "hugo": "sounds/Hugo.mp4", 
+        "girafa": "sounds/Girafa.mp4", 
+        "guivarch": "sounds/guivarch.mp4", 
+        "cherif": "sounds/cherif.mp4", 
+        "lucas": "sounds/Lucas (2).mp4", 
+        "louis": "sounds/Louis.mp4", 
+        "quentin": "sounds/quentin.mp4", 
+        "jeremy": "sounds/jeremy.mp4", 
+        "grolu": "sounds/grolu.mp4", 
+        "brancard": "sounds/brancard.mp4", 
+        "moulian": "sounds/moulian.mp4", 
+        "julian": "sounds/julian.mp4", 
+        "bastien": "sounds/bastien.mp4", 
+        "mateo": "sounds/mateo.mp4", 
+        "mateo": "sounds/mateo.mp4", 
+        "georges": "sounds/georges.mp4", 
+        "loustau": "sounds/loustau.mp4", 
+        "tulum": "sounds/loustau.mp4", 
+        "julia": "sounds/LucasJulia.mp4" 
     };
 
     const inputText = e.target.value.toLowerCase();
