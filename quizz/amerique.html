@@ -211,6 +211,61 @@
 		.home-button:hover {
 			background-color: #3a2fbf;
 		}
+		
+		#next-button:active {
+			transform: scale(0.98);
+		}
+
+
+        .result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+		}
+
+		.result-container h2 {
+			color: #333;
+		}
+
+		.home-button {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 1.1rem;
+			background-color: #4a3aff;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.home-button:hover {
+			background-color: #3a2fbf;
+		}
+		
+		@keyframes flash {
+			0%, 50%, 100% {
+				background-color: red;
+			}
+			25%, 75% {
+				background-color: white;
+			}
+		}
+
+		.result-container.low-score {
+			animation: flash 1s infinite;
+		}
+		
+		.result-container .icon {
+			max-width: 200px; /* Largeur maximale de l'image */
+			max-height: 200px; /* Hauteur maximale de l'image */
+			margin: 20px auto; /* Centre l'image avec un espacement */
+			display: block; /* Centre l'image en tant qu'élément */
+			border-radius: 10px; /* Ajoute des coins arrondis si nécessaire */
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère */
+		}
 
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
