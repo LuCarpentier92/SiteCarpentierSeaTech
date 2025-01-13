@@ -119,6 +119,10 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
         "georges": "georges, this one's for you. Check it out!",
         "loustau": "loustau, this one's for you. Check it out!",
         "tulum": "georges, this one's for you. Check it out!",
+        "vernish": "vernish, this one's for you. Check it out!",
+        "jeremy": "jeremy, this one's for you. Check it out!",
+        "even": "even, this one's for you. Check it out!",
+        "valentin": "valentin, this one's for you. Check it out!",
 		"julia": "julia, this one's for you. Check it out!"
     };
 
@@ -141,6 +145,10 @@ document.querySelector("#text-input").addEventListener("input", (e) => {
         "georges": "sounds/georges.mp4", 
         "loustau": "sounds/loustau.mp4", 
         "tulum": "sounds/loustau.mp4", 
+        "vernish": "sounds/vernish.mp4", 
+        "jeremy": "sounds/jeremy.mp4", 
+        "even": "sounds/even.mp4", 
+        "valentin": "sounds/valentin.mp4", 
         "julia": "sounds/LucasJulia.mp4" 
     };
 
