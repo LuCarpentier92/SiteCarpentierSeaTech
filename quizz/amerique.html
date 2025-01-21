@@ -463,16 +463,20 @@
 			resultImage = "<img src='https://imgresizer.eurosport.com/unsafe/2560x1440/filters:format(jpeg)/origin-imgresizer.eurosport.com/2022/10/17/3474820-70843568-2560-1440.jpg' alt='Perfect' class='icon' />";
 		}
 
-		quizContainer.innerHTML = `
-			<div class="result-container">
-				<h2>Your Score: ${score} / ${questions.length}</h2>
-				${finalScoreMessage}
-				<div class="result-icons">
-					${resultImage}
-				</div>
-				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
-			</div>
-		`;
+		// Ajout d'un petit indice subtil dans le message final
+        const secretHint = `<p style="font-style: italic; color: #007bff; margin-top: 10px;">Psst... peut-être que la barre de recherche a une petite surprise cachée pour toi 😉</p>`;
+
+        quizContainer.innerHTML = `
+            <div class="result-container">
+                <h2>Your Score: ${score} / ${questions.length}</h2>
+                ${finalScoreMessage}
+                <div class="result-icons">
+                    ${resultImage}
+                </div>
+                ${secretHint}
+                <button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+            </div>
+        `;
 	}
 
 	function getResultMessage() {

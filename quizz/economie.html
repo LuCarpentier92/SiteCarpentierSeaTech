@@ -442,35 +442,35 @@
 	}
 
 	function showResult() {
-		const quizContainer = document.getElementById("quiz-container");
-		const finalScoreMessage = getResultMessage();
+        const quizContainer = document.getElementById("quiz-container");
+        const finalScoreMessage = getResultMessage();
 
-		let resultImage = ""; // Variable pour l'image
-		if (score <= Math.floor(questions.length / 3)) {
-			// Score bas
-			resultImage = "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Disappointed' class='icon' />";
-		} else if (score <= questions.length - 3) {
-			// Score moyen
-			resultImage = "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Not Bad' class='icon' />";
-		} else if (score >= questions.length - 2 && score < questions.length) {
-			// 0 à 2 fautes
-			resultImage = "<img src='https://imgresizer.eurosport.com/unsafe/2560x1440/filters:format(jpeg)/origin-imgresizer.eurosport.com/2022/10/17/3474820-70843568-2560-1440.jpg' alt='Almost Perfect' class='icon' />";
-		} else if (score === questions.length) {
-			// Score parfait
-			resultImage = "<img src='https://imgresizer.eurosport.com/unsafe/2560x1440/filters:format(jpeg)/origin-imgresizer.eurosport.com/2022/10/17/3474820-70843568-2560-1440.jpg' alt='Perfect' class='icon' />";
-		}
+        let resultImage = ""; // Variable pour l'image
+        if (score <= Math.floor(questions.length / 3)) {
+            resultImage = "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Disappointed' class='icon' />";
+        } else if (score <= questions.length - 3) {
+            resultImage = "<img src='https://ih1.redbubble.net/image.2040244809.7006/flat,750x,075,f-pad,750x1000,f8f8f8.jpg' alt='Not Bad' class='icon' />";
+        } else if (score >= questions.length - 2 && score < questions.length) {
+            resultImage = "<img src='https://imgresizer.eurosport.com/unsafe/2560x1440/filters:format(jpeg)/origin-imgresizer.eurosport.com/2022/10/17/3474820-70843568-2560-1440.jpg' alt='Almost Perfect' class='icon' />";
+        } else if (score === questions.length) {
+            resultImage = "<img src='https://imgresizer.eurosport.com/unsafe/2560x1440/filters:format(jpeg)/origin-imgresizer.eurosport.com/2022/10/17/3474820-70843568-2560-1440.jpg' alt='Perfect' class='icon' />";
+        }
 
-		quizContainer.innerHTML = `
-			<div class="result-container">
-				<h2>Your Score: ${score} / ${questions.length}</h2>
-				${finalScoreMessage}
-				<div class="result-icons">
-					${resultImage}
-				</div>
-				<button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
-			</div>
-		`;
-	}
+        // Ajout d'un petit indice subtil dans le message final
+        const secretHint = `<p style="font-style: italic; color: #007bff; margin-top: 10px;">Psst... peut-être que la barre de recherche a une petite surprise cachée pour toi 😉</p>`;
+
+        quizContainer.innerHTML = `
+            <div class="result-container">
+                <h2>Your Score: ${score} / ${questions.length}</h2>
+                ${finalScoreMessage}
+                <div class="result-icons">
+                    ${resultImage}
+                </div>
+                ${secretHint}
+                <button class="home-button" onclick="window.location.href='../index.html'">Go to Home</button>
+            </div>
+        `;
+    }
 
 	function getResultMessage() {
 		const messages = [
